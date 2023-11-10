@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 namespace CustomMath {
  
@@ -59,7 +60,7 @@ namespace CustomMath {
         }
 
         public static float ScalingVector(Vector3D vectorA, Vector3D vectorB) { //скалярное умножение двух векторов     //ax × bx + ay * by + az * bz /// нужно для определения параллельности или перпендиккулярности 
-            float scalingVecotor = vectorA.X * vectorB.X + vectorA.X * vectorB.X + vectorA.Z * vectorB.Z;
+            float scalingVecotor = vectorA.X * vectorB.X + vectorA.Y * vectorB.Y + vectorA.Z * vectorB.Z;
             return scalingVecotor;
         }
         /*
@@ -73,6 +74,17 @@ namespace CustomMath {
             float cosin = ScalingVector(vectorA, vectorB) / (Length(vectorA) * Length(vectorB));
             return cosin;
         }
+
+        public static float AngleBetweenVectorsDegrees(Vector3D vectorA, Vector3D vectorB)
+        {
+            return Mathf.Acos(CosVector3D(vectorA, vectorB)) * Mathf.Rad2Deg;
+        }
+
+        public static float AngleBetweenVectorsRadians(Vector3D vectorA, Vector3D vectorB)
+        {
+            return Mathf.Acos(CosVector3D(vectorA, vectorB));
+        }
+
         public static float Length(Vector3D vector) { // длина  вектора     
             float lengthVector = Mathf.Sqrt(vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z);
             return lengthVector;
