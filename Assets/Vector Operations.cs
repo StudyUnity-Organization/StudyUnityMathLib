@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
+//using System.Numerics;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using CustomMath;
@@ -33,6 +33,12 @@ public class Vector : MonoBehaviour
     private Vector3D vectorNewSpaceK = new Vector3D(1, 1, 1);
 
 
+    private Vector3D vectorSum = new Vector3D(0, 0, 0);
+    private Vector3D vectorSub = new Vector3D(0, 0, 0);
+    private Vector3D vectorScaling = new Vector3D(0, 0, 0);
+    private Vector3D vectorNormal = new Vector3D(0, 0, 0);
+
+
     [SerializeField]
     private float x_NewSpaceI = 1;
     [SerializeField]
@@ -57,25 +63,27 @@ public class Vector : MonoBehaviour
     private LineRenderer lineVectorA;
     private LineRenderer lineVectorB;
 
+    private bool vivod1 = false;
 
     [ContextMenu("+-*1")]
     public void Sum_Sub_Scal_Normal()
     {
-
         Debug.LogError(vectorA);
         Debug.LogError(vectorB);
 
-        vectorZ = Vector3D.Summation(vectorA, vectorB);
-        Debug.Log("Сумма векторов:" + vectorZ);
+        vectorSum = Vector3D.Summation(vectorA, vectorB);
+        Debug.Log("Сумма векторов:" + vectorSum);
 
-        vectorZ = Vector3D.Subtraction(vectorA, vectorB);
-        Debug.Log("Разность векторов:" + vectorZ);
+        vectorSub = Vector3D.Subtraction(vectorA, vectorB);
+        Debug.Log("Разность векторов:" + vectorSub);
 
-        vectorZ = Vector3D.Scaling(vectorA, multiplier);
-        Debug.Log("Скалярное произведение:" + vectorZ);
+        vectorScaling = Vector3D.Scaling(vectorA, multiplier);
+        Debug.Log("Скалярное произведение:" + vectorScaling);
 
-        vectorZ = Vector3D.Normalized(vectorA);
-        Debug.Log("Нормализованный вектоор:" + vectorZ + "    длина: " + Vector3D.Length(vectorZ));          
+        vectorNormal = Vector3D.Normalized(vectorA);
+        Debug.Log("Нормализованный вектоор:" + vectorNormal + "    длина: " + Vector3D.Length(vectorNormal));
+
+        vivod1 = !vivod1;
     }
 
     [ContextMenu("*V_CP_LT")]
@@ -145,6 +153,48 @@ public class Vector : MonoBehaviour
 
     private void DrawLine()
     {
+        //Vector3 vector3 = new Vector3(1,1,1);
+        //vector3
+        //lineVectorA.SetPosition();
+        //lineVectorB = GetComponent<LineRenderer>();
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA));
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB));
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorZ));
+
+        if (vivod1)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB)); //желтый
+
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorSum)); //зеленый
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorSub)); //синий
+
+
+            Gizmos.color = Color.HSVToRGB(255, 0, 255);
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorScaling)); //розовый
+
+            Gizmos.color = Color.HSVToRGB(191, 191, 191);
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorNormal)); //серебристый
+
+            Update();
+
+        }
+
         //Vector3 vector3 = new Vector3(1,1,1);
         //vector3
         //lineVectorA.SetPosition();

@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
+//using System.Numerics;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -92,9 +92,19 @@ namespace CustomMath {
 
         public override string ToString() {
             return $"{X} {Y} {Z}\n";
-        }   
+        }
 
+        public static Vector3 ConversionVector3DInVector3(Vector3D vector3D)
+        {
+            Vector3 Vector3new = new Vector3(vector3D.X, vector3D.Y, vector3D.Z);
+            return Vector3new;
+        }
 
+        public static Vector3D ConversionVector3InVector3D(Vector3 vector3)
+        {
+            Vector3D Vector3Dnew = new Vector3D(vector3.x, vector3.y, vector3.z);
+            return Vector3Dnew;
+        }
 
 
 
