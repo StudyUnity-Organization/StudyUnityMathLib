@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
-<<<<<<< HEAD
-=======
 
 namespace CustomMath
 {
 
     public struct Vector3D
     {  //для проверки гита х2
->>>>>>> b0236417 (Added conversion from Vector3 to Vector3D and back + Gizmos)
 
         public float X { get; private set; }
         public float Y { get; private set; }
@@ -71,12 +68,8 @@ namespace CustomMath
             return vectorNewSpace;
         }
 
-<<<<<<< HEAD
-        public static float ScalingVector(Vector3D vectorA, Vector3D vectorB) { //скалярное умножение двух векторов     //ax × bx + ay * by + az * bz /// нужно для определения параллельности или перпендиккулярности 
-=======
         public static float ScalingVector(Vector3D vectorA, Vector3D vectorB)
         { //скалярное умножение двух векторов     //ax × bx + ay * by + az * bz /// нужно для определения параллельности или перпендиккулярности 
->>>>>>> b0236417 (Added conversion from Vector3 to Vector3D and back + Gizmos)
             float scalingVecotor = vectorA.X * vectorB.X + vectorA.Y * vectorB.Y + vectorA.Z * vectorB.Z;
             return scalingVecotor;
         }
@@ -103,12 +96,8 @@ namespace CustomMath
             return Mathf.Acos(CosVector3D(vectorA, vectorB));
         }
 
-<<<<<<< HEAD
-        public static float Length(Vector3D vector) { // длина  вектора     
-=======
         public static float Length(Vector3D vector)
         { // длина  вектора     
->>>>>>> b0236417 (Added conversion from Vector3 to Vector3D and back + Gizmos)
             float lengthVector = Mathf.Sqrt(vector.X * vector.X + vector.Y * vector.Y + vector.Z * vector.Z);
             return lengthVector;
         }
