@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-//using System.Numerics;
+using System.Numerics;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using CustomMath;
@@ -27,14 +27,6 @@ public class Vector : MonoBehaviour
     private Vector3D vectorA = new Vector3D(1, 1, 1);
     private Vector3D vectorB = new Vector3D(2, 2, 2);
     private Vector3D vectorZ = new Vector3D(0, 0, 0);
-<<<<<<< HEAD
-=======
-
-    private Vector3D vectorSum = new Vector3D(0, 0, 0);
-    private Vector3D vectorSub = new Vector3D(0, 0, 0);
-    private Vector3D vectorScaling = new Vector3D(0, 0, 0);
-    private Vector3D vectorNormal = new Vector3D(0, 0, 0);
->>>>>>> b0236417 (Added conversion from Vector3 to Vector3D and back + Gizmos)
 
     private Vector3D vectorNewSpaceI = new Vector3D(1, 1, 1);
     private Vector3D vectorNewSpaceJ = new Vector3D(1, 1, 1);
@@ -65,14 +57,11 @@ public class Vector : MonoBehaviour
     private LineRenderer lineVectorA;
     private LineRenderer lineVectorB;
 
-   
-    private bool vivod1 = false;
 
     [ContextMenu("+-*1")]
     public void Sum_Sub_Scal_Normal()
     {
 
-<<<<<<< HEAD
         Debug.LogError(vectorA);
         Debug.LogError(vectorB);
 
@@ -87,27 +76,6 @@ public class Vector : MonoBehaviour
 
         vectorZ = Vector3D.Normalized(vectorA);
         Debug.Log("Нормализованный вектоор:" + vectorZ + "    длина: " + Vector3D.Length(vectorZ));          
-=======
-    [ContextMenu("+-*1")]
-    public void Sum_Sub_Scal_Normal()
-    {
-        Debug.LogError(vectorA);
-        Debug.LogError(vectorB);
-     
-        vectorSum = Vector3D.Summation(vectorA, vectorB);
-        Debug.Log("Сумма векторов:" + vectorSum);      
-
-        vectorSub = Vector3D.Subtraction(vectorA, vectorB);
-        Debug.Log("Разность векторов:" + vectorSub);     
-
-        vectorScaling = Vector3D.Scaling(vectorA, multiplier);
-        Debug.Log("Скалярное произведение:" + vectorScaling);     
-
-        vectorNormal = Vector3D.Normalized(vectorA);
-        Debug.Log("Нормализованный вектоор:" + vectorNormal + "    длина: " + Vector3D.Length(vectorNormal));        
-        
-        vivod1 = !vivod1;
->>>>>>> b0236417 (Added conversion from Vector3 to Vector3D and back + Gizmos)
     }
 
     [ContextMenu("*V_CP_LT")]
@@ -129,11 +97,7 @@ public class Vector : MonoBehaviour
         Debug.LogError(vectorB);
         float angleDeegres = Vector3D.AngleBetweenVectorsDegrees(vectorA, vectorB);
         float angleRadians = Vector3D.AngleBetweenVectorsRadians(vectorA, vectorB);
-<<<<<<< HEAD
         Debug.Log("Угол между двумя векторами:   (Градусы): " + angleDeegres + "   (Радианы): " + angleRadians);   
-=======
-        Debug.Log("Угол между двумя векторами:   (Градусы): " + angleDeegres + "   (Радианы): " + angleRadians);
->>>>>>> b0236417 (Added conversion from Vector3 to Vector3D and back + Gizmos)
     }
     [ContextMenu("Initial Values")]
     public void InitialVsalues()
@@ -173,7 +137,6 @@ public class Vector : MonoBehaviour
         DrawLine();
     }
 
-<<<<<<< HEAD
     private void Line() { 
         lineVectorA = GetComponent<LineRenderer>();
         lineVectorB = GetComponent<LineRenderer>();
@@ -188,70 +151,7 @@ public class Vector : MonoBehaviour
         //lineVectorB = GetComponent<LineRenderer>();
 
     }
-=======
-    }
-
-    private void Line()
-    {
-        lineVectorA = GetComponent<LineRenderer>();
-        lineVectorB = GetComponent<LineRenderer>();
-
-    }
-
-    private void DrawLine()
-    {
-        //Vector3 vector3 = new Vector3(1,1,1);
-        //vector3
-        //lineVectorA.SetPosition();
-        //lineVectorB = GetComponent<LineRenderer>();
-
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA));
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB));
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorZ));
-
-        if (vivod1)
-        {
-           
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
-
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB)); //желтый
-
-
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorSum)); //зеленый
-
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorSub)); //синий
-
-           
-            Gizmos.color = Color.HSVToRGB(255, 0, 255);
-            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorScaling)); //розовый
-
-            Gizmos.color = Color.HSVToRGB(191, 191, 191);
-            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorNormal)); //серебристый
-           
-        }
-
-        //Vector3 vector3 = new Vector3(1,1,1);
-        //vector3
-        //lineVectorA.SetPosition();
-        //lineVectorB = GetComponent<LineRenderer>();
-
-    }
-
->>>>>>> b0236417 (Added conversion from Vector3 to Vector3D and back + Gizmos)
 
 
 }
-
-
  
