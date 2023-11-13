@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 //using System.Numerics;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
@@ -46,9 +49,9 @@ namespace CustomMath {
         }
 
         public static Vector3D CrossProduct(Vector3D vectorA, Vector3D vectorB) { //векторное произведение - позвояет найти вектор перпендикулярный двум другим векторам(плоскости)
-            Vector3D vectorZ = new Vector3D(vectorA.Y * vectorB.Z - vectorA.Z * vectorB.X,      // (a.y*b.z - a.z*b.y)
-                                            vectorA.Y * vectorB.Z - vectorA.Z * vectorB.X,      // (a.x*b.z - a.z*b.x)
-                                            vectorA.Y * vectorB.Y - vectorA.Y * vectorB.X);   // (a.x*b.y - a.y*b.x)
+            Vector3D vectorZ = new Vector3D(vectorA.Y * vectorB.Z - vectorA.Z * vectorB.Y,      // (a.y*b.z - a.z*b.y)
+                                            vectorA.Z * vectorB.X - vectorA.X * vectorB.Z,      // -(a.x*b.z - a.z*b.x)  (ВНАЧАЛЕ СТОИТ МИНУС - ПОЭТОМУ ЗНАЧЕНИЯ ИНВЕРТИРОВАНЫ)
+                                            vectorA.X * vectorB.Y - vectorA.Y * vectorB.X);   // (a.x*b.y - a.y*b.x)
             return vectorZ;
         }
 
@@ -58,6 +61,115 @@ namespace CustomMath {
                                                    vector.X * vectorNormalI.Z + vector.Y * vectorNormalJ.Z + vector.Z * vectorNormalK.Z);
             return vectorNewSpace;
         }
+
+        public static Vector3D RotationAroundPoint(Vector3D center, Vector3D vectorObject, float angle)       { //перевод вектора из мирового пространства в локальное
+
+            float x = vectorObject.X - center.X;
+            float y = vectorObject.Y;
+            float z = vectorObject.Z - center.Z;
+
+            float xR =  (float)(x * Math.Cos(angle) - z * Math.Sin(angle)) + center.X;
+            Debug.Log("cos =" + Math.Cos(angle) + "  Sin = " + Math.Sin(angle));
+            float yR = y;
+            float zR = (float)(x * Math.Sin(angle) + z * Math.Cos(angle)) + center.Z;
+
+            //xR = xR + center.X;
+           
+            //zR = zR + center.Z;
+
+
+            Vector3D vectorNewRotation = new Vector3D(xR, yR, zR); 
+
+            return vectorNewRotation;
+        }
+
+        public static Vector3D RotationAroundPointСoordinate(Vector3D center, Vector3D vectorObject, float angle, bool xBool, bool yBool, bool zBool)  { //TODO спросить про расширение 
+      
+            Vector3D vectorNewRotation = vectorObject;
+            float x;
+            float y;
+            float z;
+            float xR;
+            float yR;
+            float zR;
+            if (xBool)
+            {
+                x = vectorNewRotation.X; 
+                y = vectorNewRotation.Y - center.Y;
+                z = vectorNewRotation.Z - center.Z;
+
+                xR = x;               
+                yR = (float)(y * Math.Cos(angle) - z * Math.Sin(angle)) + center.Y;
+                zR = (float)(y * Math.Sin(angle) + z * Math.Cos(angle)) + center.Z;
+
+                vectorNewRotation = new Vector3D(xR, yR, zR);
+            }
+
+            if (yBool)
+            {
+                x = vectorNewRotation.X - center.X;
+                y = vectorNewRotation.Y;
+                z = vectorNewRotation.Z - center.Z;
+
+                xR = (float)(x * Math.Cos(angle) - z * Math.Sin(angle)) + center.X;               
+                yR = y;
+                zR = (float)(x * Math.Sin(angle) + z * Math.Cos(angle)) + center.Z;   
+
+                vectorNewRotation = new Vector3D(xR, yR, zR);
+            }
+
+
+            if (zBool)
+            {
+                x = vectorNewRotation.X - center.X;
+                y = vectorNewRotation.Y - center.Y;
+                z = vectorNewRotation.Z;
+
+                xR = (float)(x * Math.Cos(angle) - y * Math.Sin(angle)) + center.X;  
+                yR = (float)(x * Math.Sin(angle) + y * Math.Cos(angle)) + center.Y;
+                zR = z;
+                vectorNewRotation = new Vector3D(xR, yR, zR);
+            }
+
+            return vectorNewRotation;
+        }
+
+        public static Vector3D ReflectionFromThePlaneMirror(Vector3D vectorObject, Vector3D speed, Vector3D normal, float kElasticity)  {
+            Vector3D vectorReflection = vectorObject;
+            //  v' = v - 2 * (v ∙ n/n ∙ n) * n
+            float dot = vectorObject * normal * kElasticity;
+           // vectorReflection = Scaling((vectorObject - Scaling(normal, 2 * dot)), kElasticity);
+            vectorReflection.X = vectorObject.X - 2 * dot * normal.X;
+            vectorReflection.Y = vectorObject.Y - 2 * dot * normal.Y;
+            vectorReflection.Z = vectorObject.Z - 2 * dot * normal.Z;
+            return vectorReflection;
+        }
+
+        public static Vector3D ReflectionFromThePlaneGlass(Vector3D vectorObject, Vector3D speed, Vector3D normal, float kElasticity)
+        {
+            Vector3D vectorReflectionMirror = vectorObject;
+            //  v' = v - 2 * (v ∙ n/n ∙ n) * n
+            float dot = vectorObject * normal * kElasticity;
+            // vectorReflection = Scaling((vectorObject - Scaling(normal, 2 * dot)), kElasticity);
+            vectorReflectionMirror.X = vectorObject.X - 2 * dot * normal.X;
+            vectorReflectionMirror.Y = vectorObject.Y - 2 * dot * normal.Y;
+            vectorReflectionMirror.Z = vectorObject.Z - 2 * dot * normal.Z;
+
+            Vector3D vectorX = new Vector3D(1, 0, 0);
+            Vector3D vectorY = new Vector3D(0, 1, 0);
+            Vector3D vectorZ = new Vector3D(0, 0, 1);
+            if (normal == vectorX)  {
+                normal = vectorY;
+            }
+            else if (normal == vectorY) { 
+                normal = vectorZ; 
+            } else if (normal == vectorZ) { 
+                normal = vectorX; 
+            }
+            Vector3D vectorReflectionGlass = Scaling((vectorObject - Scaling(normal, 2 * dot)), kElasticity);
+            return vectorReflectionGlass;
+        }
+
 
         public static float ScalingVector(Vector3D vectorA, Vector3D vectorB) { //скалярное умножение двух векторов     //ax × bx + ay * by + az * bz /// нужно для определения параллельности или перпендиккулярности 
             float scalingVecotor = vectorA.X * vectorB.X + vectorA.Y * vectorB.Y + vectorA.Z * vectorB.Z;
@@ -107,6 +219,41 @@ namespace CustomMath {
         }
 
 
+
+
+
+        public static Vector3D operator +(Vector3D v1, Vector3D v2)
+        {
+            return new Vector3D(v1.X + v2.X, v1.Y + v2.Y, v1.Z + v2.Z);
+        }
+        public static Vector3D operator -(Vector3D v1, Vector3D v2)
+        {            
+            return new Vector3D(v1.X - v2.X, v1.Y - v2.Y, v1.Z - v2.Z);
+        }
+        //public static Vector3D operator *(Vector3D vectorA, Vector3D vectorB)
+        //{
+        //    Vector3D vectorZ = new Vector3D(vectorA.Y * vectorB.Z - vectorA.Z * vectorB.Y,      // (a.y*b.z - a.z*b.y)
+        //                                    vectorA.Z * vectorB.X - vectorA.X * vectorB.Z,      // -(a.x*b.z - a.z*b.x)  (ВНАЧАЛЕ СТОИТ МИНУС - ПОЭТОМУ ЗНАЧЕНИЯ ИНВЕРТИРОВАНЫ)
+        //                                    vectorA.X * vectorB.Y - vectorA.Y * vectorB.X);   // (a.x*b.y - a.y*b.x)
+        //    return vectorZ;
+        //}
+ 
+        public static float operator * (Vector3D vectorA, Vector3D vectorB)
+        { //скалярное умножение двух векторов     //ax × bx + ay * by + az * bz /// нужно для определения параллельности или перпендиккулярности 
+            float scalingVecotor = vectorA.X * vectorB.X + vectorA.Y * vectorB.Y + vectorA.Z * vectorB.Z;
+            return scalingVecotor;
+        }
+
+        public static bool operator ==(Vector3D vectorA, Vector3D vectorB)
+        { //скалярное умножение двух векторов     //ax × bx + ay * by + az * bz /// нужно для определения параллельности или перпендиккулярности 
+            if(vectorA.X == vectorB.X && vectorA.Y == vectorB.Y && vectorA.Z == vectorB.Z) return true;
+            return false;
+        }
+        public static bool operator !=(Vector3D vectorA, Vector3D vectorB)
+        { //скалярное умножение двух векторов     //ax × bx + ay * by + az * bz /// нужно для определения параллельности или перпендиккулярности 
+            if (vectorA.X != vectorB.X || vectorA.Y != vectorB.Y || vectorA.Z != vectorB.Z) return true;
+            return false;
+        }
 
     }
 

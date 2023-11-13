@@ -5,6 +5,9 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using CustomMath;
 using Unity.VisualScripting;
+using UnityEditor;
+
+
 
 public class Vector : MonoBehaviour
 {
@@ -38,6 +41,14 @@ public class Vector : MonoBehaviour
     private Vector3D vectorScaling = new Vector3D(0, 0, 0);
     private Vector3D vectorNormal = new Vector3D(0, 0, 0);
 
+    // private Vector3D vectorScalarProduct = new Vector3D(0, 0, 0);
+    private Vector3D vectorCrossProduct = new Vector3D(0, 0, 0);
+    private Vector3D vectorLinearTransformations = new Vector3D(0, 0, 0);
+
+    private Vector3D vectorRotation = new Vector3D(10, 0, 10);
+    private Vector3D vectorReflectionMirror = new Vector3D(10, 0, 10);
+    private Vector3D vectorReflectionGlass = new Vector3D(10, 0, 10);
+    private Vector3 vectorNormalSurface = Vector3.forward;
 
     [SerializeField]
     private float x_NewSpaceI = 1;
@@ -60,53 +71,188 @@ public class Vector : MonoBehaviour
     [SerializeField]
     private float z_NewSpaceK = 1;
 
-    private LineRenderer lineVectorA;
-    private LineRenderer lineVectorB;
+    [SerializeField]
+    float angleDeegres = 0;
+    [SerializeField]
+    float angleRadians = 0;
+
+    [SerializeField]
+    private float kElasticity = 1;
+
+
+    public float angle = 30f;
+    public float angleRotation = 2f;
+
+
 
     private bool vivod1 = false;
+    private bool vivod2 = false;
+    private bool vivod3 = false;
+    private bool vivod4 = false;
+    private bool vivod5 = false;
+    private bool vivod6 = false;
+
+    [SerializeField]
+    private Color color1 = new Color(0.2F, 0.3F, 0.4F, 0.5F);
+
+    [SerializeField]
+    private Color color2 = new Color(0.2F, 0.3F, 0.4F, 0.5F);
+    [SerializeField]
+    private Color color3 = new Color(0.2F, 0.3F, 0.4F, 0.5F);
+
+    [SerializeField]
+    private Color color4 = new Color(0.2F, 0.3F, 0.4F, 0.5F);
+    [SerializeField]
+    private Color color5 = new Color(0.2F, 0.3F, 0.4F, 0.5F);
+
+    [SerializeField]
+    private Color color6 = new Color(0.2F, 0.3F, 0.4F, 0.5F);
 
     [ContextMenu("+-*1")]
     public void Sum_Sub_Scal_Normal()
     {
-        Debug.LogError(vectorA);
-        Debug.LogError(vectorB);
-
-        vectorSum = Vector3D.Summation(vectorA, vectorB);
-        Debug.Log("Сумма векторов:" + vectorSum);
-
-        vectorSub = Vector3D.Subtraction(vectorA, vectorB);
-        Debug.Log("Разность векторов:" + vectorSub);
-
-        vectorScaling = Vector3D.Scaling(vectorA, multiplier);
-        Debug.Log("Скалярное произведение:" + vectorScaling);
-
-        vectorNormal = Vector3D.Normalized(vectorA);
-        Debug.Log("Нормализованный вектоор:" + vectorNormal + "    длина: " + Vector3D.Length(vectorNormal));
-
         vivod1 = !vivod1;
+        Sum_Sub_Scal_Normal_Funk(vivod1);
     }
+    public void Sum_Sub_Scal_Normal_Funk(bool vivod1)
+    {
+        if (vivod1)
+        {
+            Debug.LogError(vectorA);
+            Debug.LogError(vectorB);
+
+            vectorSum = Vector3D.Summation(vectorA, vectorB);
+            Debug.Log("Сумма векторов(зеленый):" + vectorSum);
+
+            vectorSub = Vector3D.Subtraction(vectorA, vectorB);
+            Debug.Log("Разность векторов(желтый):" + vectorSub);
+
+            vectorScaling = Vector3D.Scaling(vectorA, multiplier);
+            Debug.Log("Скалярное произведение(color1):" + vectorScaling);
+
+            vectorNormal = Vector3D.Normalized(vectorA);
+            Debug.Log("Нормализованный вектоор(color2):" + vectorNormal + "    длина: " + Vector3D.Length(vectorNormal));
+                 
+        }   
+    }
+
 
     [ContextMenu("*V_CP_LT")]
     public void ScalingV_crospProd_LinerTransform()
     {
-        Debug.LogError(vectorA);
-        Debug.LogError(vectorB);
-        Debug.Log("Скалярное произведение(умнож): " + Vector3D.ScalingVector(vectorA, vectorB));
-
-        Debug.Log("Перекрестное произведение: " + Vector3D.CrossProduct(vectorA, vectorB));
-
-        Debug.Log("Преобразование из пространства в новое пространство\n: " + Vector3D.LinearTransformations(vectorNewSpaceI, vectorNewSpaceJ, vectorNewSpaceK, vectorA).ToString());
+        vivod2 = !vivod2;
+        ScalingV_crospProd_LinerTransform_funk(vivod2);
     }
+    public void ScalingV_crospProd_LinerTransform_funk(bool vivod2) {
+        if (vivod2)
+        {
+            Debug.LogError(vectorA);
+            Debug.LogError(vectorB);
+            Debug.Log("Скалярное произведение(умнож): " + Vector3D.ScalingVector(vectorA, vectorB));
+
+            vectorCrossProduct = Vector3D.CrossProduct(vectorA, vectorB);
+            Debug.Log("Перекрестное произведение: " + vectorCrossProduct);
+
+            vectorLinearTransformations = Vector3D.LinearTransformations(vectorNewSpaceI, vectorNewSpaceJ, vectorNewSpaceK, vectorA);
+            Debug.Log("Преобразование из пространства в новое пространство\n: " + vectorLinearTransformations.ToString());
+            
+        }
+    }
+
 
     [ContextMenu("Angle")]
     public void AngleBetween()
     {
-        Debug.LogError(vectorA);
-        Debug.LogError(vectorB);
-        float angleDeegres = Vector3D.AngleBetweenVectorsDegrees(vectorA, vectorB);
-        float angleRadians = Vector3D.AngleBetweenVectorsRadians(vectorA, vectorB);
-        Debug.Log("Угол между двумя векторами:   (Градусы): " + angleDeegres + "   (Радианы): " + angleRadians);   
+        vivod3 = !vivod3;
+        AngleBetween_funk(vivod3);
     }
+    public void AngleBetween_funk(bool vivod3)
+    {
+        if (vivod3)
+        {
+            Debug.LogError(vectorA);
+            Debug.LogError(vectorB);
+            angleDeegres = Vector3D.AngleBetweenVectorsDegrees(vectorA, vectorB);
+            angleRadians = Vector3D.AngleBetweenVectorsRadians(vectorA, vectorB);
+            Debug.Log("Угол между двумя векторами:   (Градусы): " + angleDeegres + "   (Радианы): " + angleRadians);
+        }
+    }
+
+
+    [ContextMenu("Rotation_MOD1")]
+    public void Rotation()
+    {
+        vivod4 = !vivod4;
+        Rotation_funk(vivod4);
+    }
+    public void Rotation_funk(bool vivod3)
+    {
+        if (vivod4)
+        {
+            Debug.LogError(vectorA);
+            Debug.LogError(vectorB);
+            vectorRotation = Vector3D.RotationAroundPointСoordinate(vectorB, vectorRotation, angleRotation / Mathf.Rad2Deg, false, false, true);
+            //vectorRotation = Vector3D.RotationAroundPoint(vectorB, vectorRotation, angleRotation / Mathf.Rad2Deg);
+            //    vectorRotation = Vector3D.RotationAroundPoint(Vector3D.ConversionVector3InVector3D(Vector3.zero), vectorA, angleRotation / Mathf.Rad2Deg);
+            //    vectorA = vectorRotation;
+            //xA = vectorRotation.X;
+            //yA = vectorRotation.Y;
+            //zA = vectorRotation.Z;            
+        }
+    }
+
+
+    [ContextMenu("Rotation_MOD2")]
+    public void RotationMOD2()
+    {
+        vivod5 = !vivod5;
+        Rotation_funkMOD2(vivod5);
+    }
+    public void Rotation_funkMOD2(bool vivod3)
+    {
+        float _timer = Time.deltaTime;
+        float _time = 10f;
+        float _timerWait = 2f;
+
+        if (vivod5)
+        {
+            Vector3D vectorAnew = vectorA;
+            while (vectorA.X != vectorAnew.X && vectorA.Y != vectorAnew.Y && vectorA.Z != vectorAnew.Z)
+            {               
+                vectorRotation = Vector3D.RotationAroundPoint(Vector3D.ConversionVector3InVector3D(Vector3.zero), vectorA, angleRotation / Mathf.Rad2Deg);
+                vectorA = vectorRotation;
+                xA = vectorRotation.X;
+                yA = vectorRotation.Y;
+                zA = vectorRotation.Z;
+                _timer += Time.deltaTime;
+            
+            }
+        }
+    }
+
+
+    [ContextMenu("Reflection")]
+    public void Reflection()
+    {
+        vivod6 = !vivod6;
+        Reflection_funk(vivod6);
+    }
+    public void Reflection_funk(bool vivod6)
+    {
+        float _timer = Time.deltaTime;
+        float _time = 10f;
+        float _timerWait = 2f;
+
+        if (vivod6)
+        {
+            vectorReflectionMirror = Vector3D.ReflectionFromThePlaneMirror(vectorA, vectorB, Vector3D.ConversionVector3InVector3D(vectorNormalSurface), kElasticity);
+            vectorReflectionGlass = Vector3D.ReflectionFromThePlaneGlass(vectorA, vectorB, Vector3D.ConversionVector3InVector3D(vectorNormalSurface), kElasticity);
+
+        }
+    }
+
+
+
     [ContextMenu("Initial Values")]
     public void InitialVsalues()
     {
@@ -126,9 +272,8 @@ public class Vector : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
-    {
-        Line();
+    void Start()    {
+        
     }
 
     // Update is called once per frame
@@ -142,23 +287,9 @@ public class Vector : MonoBehaviour
         vectorNewSpaceJ.Set(x_NewSpaceJ, y_NewSpaceJ, z_NewSpaceJ);
         vectorNewSpaceK.Set(x_NewSpaceK, y_NewSpaceK, z_NewSpaceK);
 
-        DrawLine();
+       
     }
 
-    private void Line() { 
-        lineVectorA = GetComponent<LineRenderer>();
-        lineVectorB = GetComponent<LineRenderer>();
-
-    }
-
-    private void DrawLine()
-    {
-        //Vector3 vector3 = new Vector3(1,1,1);
-        //vector3
-        //lineVectorA.SetPosition();
-        //lineVectorB = GetComponent<LineRenderer>();
-
-    }
 
     private void OnDrawGizmos()
     {
@@ -166,42 +297,178 @@ public class Vector : MonoBehaviour
         Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA));
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB));
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorZ));
+        Gizmos.color = Color.grey;
+        Gizmos.DrawSphere(Vector3D.ConversionVector3DInVector3(vectorRotation), 1f); // синий
 
+        
         if (vivod1)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
 
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB)); //желтый
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB)); // синий
 
 
             Gizmos.color = Color.green;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorSum)); //зеленый
 
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorSub)); //синий
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorSub)); //желтый
 
 
-            Gizmos.color = Color.HSVToRGB(255, 0, 255);
+            Gizmos.color = color1;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorScaling)); //розовый
 
-            Gizmos.color = Color.HSVToRGB(191, 191, 191);
+            Gizmos.color = color2;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorNormal)); //серебристый
 
-            Update();
+            Sum_Sub_Scal_Normal_Funk(vivod1);
+
+
 
         }
 
-        //Vector3 vector3 = new Vector3(1,1,1);
-        //vector3
-        //lineVectorA.SetPosition();
-        //lineVectorB = GetComponent<LineRenderer>();
+        if (vivod2)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB)); // синий
+
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorCrossProduct)); //зеленый
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorLinearTransformations)); //желтый
+
+
+            Gizmos.color = color3;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorNewSpaceI)); //белый
+
+            Gizmos.color = color4;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorNewSpaceI)); //белый
+
+            Gizmos.color = color5;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorNewSpaceK)); //белый
+
+            ScalingV_crospProd_LinerTransform_funk(vivod2);
+      
+
+
+        }
+
+        if (vivod3)
+        {
+            bool isEnterTheAngle = angle <= Vector3D.AngleBetweenVectorsDegrees(vectorA, vectorB); 
+            Gizmos.color = isEnterTheAngle ? Color.red : Color.green;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB)); // синий
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(Vector3D.CrossProduct(vectorA, vectorB))); // желтый
+
+            AngleBetween_funk(vivod3);
+
+
+            Handles.DrawWireArc(
+  /*центр*/    transform.position, 
+  /*нормаль*/  Vector3D.ConversionVector3DInVector3(Vector3D.Normalized(Vector3D.CrossProduct(vectorA, vectorB))),
+  /*выход*/    Vector3D.ConversionVector3DInVector3(Vector3D.Normalized(vectorA)),
+  /*угол*/     Vector3D.AngleBetweenVectorsDegrees(vectorA, vectorB),
+  /*радиус*/   Vector3D.Length(Vector3D.Normalized(vectorA)));
+
+
+            //Handles.DrawSolidDisc(
+            //    transform.position,               
+            //    Vector3D.ConversionVector3DInVector3(Vector3D.Normalized(Vector3D.CrossProduct(vectorA, vectorB))),
+            //    Vector3D.Length(Vector3D.Normalized(Vector3D.CrossProduct(vectorA, vectorB))) );
+        }
+
+
+        if (vivod4)
+        {
+          
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB)); // синий
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(Vector3D.ConversionVector3DInVector3(vectorB), Vector3D.ConversionVector3DInVector3(vectorRotation)); // синий
+
+
+            Gizmos.color = Color.grey;
+            Gizmos.DrawSphere(Vector3D.ConversionVector3DInVector3(vectorRotation), 1f); // синий
+
+            vivod4 = !vivod4;
+        }
+
+        if (vivod5)
+        {
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB)); // синий
+
+            vivod4 = !vivod4;
+        }
+      
+        if (vivod6)
+        {
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB)); // синий
+
+
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorReflectionMirror)); //
+                                                                                                         // 
+            //Gizmos.color = Color.yellow;
+            //Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorReflectionGlass)); // зеленый
+            
+            if (vectorNormalSurface == Vector3.up)
+            {
+                Handles.DrawSolidDisc(
+                    transform.position,
+                    Vector3.right, //Vector3.up(0,1,0),  Vector3.forward(0,0,1)  Vector3.right(1,0,0)
+                    1);
+            }
+
+            if (vectorNormalSurface == Vector3.forward)
+            {
+                Handles.DrawSolidDisc(
+                    transform.position,
+                    Vector3.up, //Vector3.up(0,1,0),  Vector3.forward(0,0,1)  Vector3.right(1,0,0)
+                    1);
+            }
+
+            if (vectorNormalSurface == Vector3.right)
+            {
+                Handles.DrawSolidDisc(
+                    transform.position,
+                    Vector3.forward, //Vector3.up(0,1,0),  Vector3.forward(0,0,1)  Vector3.right(1,0,0)
+                    1);
+            }
+
+            Reflection_funk(true);
+        }
+
+        Update();     
 
     }
 
+  
+
 
 }
- 
