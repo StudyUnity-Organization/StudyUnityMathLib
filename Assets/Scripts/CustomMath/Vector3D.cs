@@ -135,38 +135,20 @@ namespace CustomMath {
         }
 
         public static Vector3D ReflectionFromThePlaneMirror(Vector3D vectorObject, Vector3D speed, Vector3D normal, float kElasticity)  {
-            Vector3D vectorReflection = vectorObject;
-            //  v' = v - 2 * (v ∙ n/n ∙ n) * n
-            float dot = vectorObject * normal * kElasticity;
-           // vectorReflection = Scaling((vectorObject - Scaling(normal, 2 * dot)), kElasticity);
-            vectorReflection.X = vectorObject.X - 2 * dot * normal.X;
-            vectorReflection.Y = vectorObject.Y - 2 * dot * normal.Y;
-            vectorReflection.Z = vectorObject.Z - 2 * dot * normal.Z;
+            //  v' = v - 2 * (v ∙ n/n ∙ n) * n  - зеркало (отражение)                    
+            float dot = vectorObject * normal;
+            Vector3D vectorReflection = Scaling((vectorObject - Scaling(normal, 2 * dot)), kElasticity);
             return vectorReflection;
         }
 
-        public static Vector3D ReflectionFromThePlaneGlass(Vector3D vectorObject, Vector3D speed, Vector3D normal, float kElasticity)
-        {
-            Vector3D vectorReflectionMirror = vectorObject;
-            //  v' = v - 2 * (v ∙ n/n ∙ n) * n
-            float dot = vectorObject * normal * kElasticity;
-            // vectorReflection = Scaling((vectorObject - Scaling(normal, 2 * dot)), kElasticity);
-            vectorReflectionMirror.X = vectorObject.X - 2 * dot * normal.X;
-            vectorReflectionMirror.Y = vectorObject.Y - 2 * dot * normal.Y;
-            vectorReflectionMirror.Z = vectorObject.Z - 2 * dot * normal.Z;
+        public static Vector3D ReflectionFromThePlaneGlass(Vector3D vectorObject, Vector3D speed, Vector3D normal, float kElasticity)  {
+            //v'=v-2(v - v*n)   рикошет (отражение от поверхности)                     
+            Vector3D multiplicationVectors = new Vector3D(vectorObject.X * normal.X,
+                                                          vectorObject.Y * normal.Y,
+                                                          vectorObject.Z * normal.Z);
 
-            Vector3D vectorX = new Vector3D(1, 0, 0);
-            Vector3D vectorY = new Vector3D(0, 1, 0);
-            Vector3D vectorZ = new Vector3D(0, 0, 1);
-            if (normal == vectorX)  {
-                normal = vectorY;
-            }
-            else if (normal == vectorY) { 
-                normal = vectorZ; 
-            } else if (normal == vectorZ) { 
-                normal = vectorX; 
-            }
-            Vector3D vectorReflectionGlass = Scaling((vectorObject - Scaling(normal, 2 * dot)), kElasticity);
+            Vector3D vectorReflectionGlass = vectorObject - Scaling(vectorObject - multiplicationVectors, 2);
+            vectorReflectionGlass = Scaling(vectorReflectionGlass, kElasticity);
             return vectorReflectionGlass;
         }
 
@@ -239,10 +221,11 @@ namespace CustomMath {
         //}
  
         public static float operator * (Vector3D vectorA, Vector3D vectorB)
-        { //скалярное умножение двух векторов     //ax × bx + ay * by + az * bz /// нужно для определения параллельности или перпендиккулярности 
+        {  
             float scalingVecotor = vectorA.X * vectorB.X + vectorA.Y * vectorB.Y + vectorA.Z * vectorB.Z;
             return scalingVecotor;
         }
+             
 
         public static bool operator ==(Vector3D vectorA, Vector3D vectorB)
         { //скалярное умножение двух векторов     //ax × bx + ay * by + az * bz /// нужно для определения параллельности или перпендиккулярности 

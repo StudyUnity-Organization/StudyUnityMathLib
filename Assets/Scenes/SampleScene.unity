@@ -335,10 +335,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f16958d35bd27b45ae4b22b7e1ad2c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xA: 1.62
-  yA: 2.16
+  xA: 1
+  yA: 1
   zA: 1
-  xB: 10
+  xB: 1
   yB: 0
   zB: 0
   multiplier: 10

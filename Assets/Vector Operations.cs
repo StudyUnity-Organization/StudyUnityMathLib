@@ -48,7 +48,7 @@ public class Vector : MonoBehaviour
     private Vector3D vectorRotation = new Vector3D(10, 0, 10);
     private Vector3D vectorReflectionMirror = new Vector3D(10, 0, 10);
     private Vector3D vectorReflectionGlass = new Vector3D(10, 0, 10);
-    private Vector3 vectorNormalSurface = Vector3.forward;
+    private Vector3 vectorNormalSurface = Vector3.up; //Vector3.up(0,1,0),  Vector3.forward(0,0,1)  Vector3.right(1,0,0)
 
     [SerializeField]
     private float x_NewSpaceI = 1;
@@ -77,6 +77,7 @@ public class Vector : MonoBehaviour
     float angleRadians = 0;
 
     [SerializeField]
+    [Range(0f, 1f)]
     private float kElasticity = 1;
 
 
@@ -247,7 +248,8 @@ public class Vector : MonoBehaviour
         {
             vectorReflectionMirror = Vector3D.ReflectionFromThePlaneMirror(vectorA, vectorB, Vector3D.ConversionVector3InVector3D(vectorNormalSurface), kElasticity);
             vectorReflectionGlass = Vector3D.ReflectionFromThePlaneGlass(vectorA, vectorB, Vector3D.ConversionVector3InVector3D(vectorNormalSurface), kElasticity);
-
+            Debug.Log("Координаты отраженного вектора(зеркало) " + vectorReflectionMirror + "  Нормаль:  " + Vector3D.ConversionVector3InVector3D(vectorNormalSurface) + " исходный: " + vectorA);
+            Debug.Log("Координаты отраженного вектора(стекло) " + vectorReflectionGlass);
         }
     }
 
@@ -434,12 +436,22 @@ public class Vector : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorReflectionMirror)); //
                                                                                                          // 
-            //Gizmos.color = Color.yellow;
-            //Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorReflectionGlass)); // зеленый
-            
-            if (vectorNormalSurface == Vector3.up)
+            Gizmos.color = Color.black;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorReflectionGlass)); // желтый
+
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(Vector3.zero, vectorNormalSurface*2); // желтый
+
+            Handles.color = Color.yellow;
+            Handles.DrawSolidDisc(
+                transform.position,
+                vectorNormalSurface,
+                1);
+            Handles.color = Color.white;
+
+            if (vectorNormalSurface == Vector3.up) //рисую диск плоскости отражения
             {
-                Handles.DrawSolidDisc(
+                Handles.DrawSolidDisc( 
                     transform.position,
                     Vector3.right, //Vector3.up(0,1,0),  Vector3.forward(0,0,1)  Vector3.right(1,0,0)
                     1);
@@ -449,16 +461,16 @@ public class Vector : MonoBehaviour
             {
                 Handles.DrawSolidDisc(
                     transform.position,
-                    Vector3.up, //Vector3.up(0,1,0),  Vector3.forward(0,0,1)  Vector3.right(1,0,0)
-                    1);
+                    Vector3.up, 
+                    1);              
             }
 
             if (vectorNormalSurface == Vector3.right)
             {
                 Handles.DrawSolidDisc(
                     transform.position,
-                    Vector3.forward, //Vector3.up(0,1,0),  Vector3.forward(0,0,1)  Vector3.right(1,0,0)
-                    1);
+                    Vector3.forward, 
+                    1);               
             }
 
             Reflection_funk(true);
