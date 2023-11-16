@@ -1,11 +1,8 @@
-﻿using System.Collections;
+﻿using CustomMath;
 using System.Collections.Generic;
-//using System.Numerics;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UnityEngine;
-using CustomMath;
-using Unity.VisualScripting;
 using UnityEditor;
+//using System.Numerics;
+using UnityEngine;
 
 
 
@@ -50,6 +47,9 @@ public class Vector : MonoBehaviour
     private Vector3D vectorReflectionGlass = new Vector3D(10, 0, 10);
     private Vector3 vectorNormalSurface = Vector3.up; //Vector3.up(0,1,0),  Vector3.forward(0,0,1)  Vector3.right(1,0,0)
 
+    private Vector3D vectorBallistics = new Vector3D(10, 0, 10);
+    private List<Vector3D> vectorBallisticsList = new List<Vector3D>();
+
     [SerializeField]
     private float x_NewSpaceI = 1;
     [SerializeField]
@@ -72,9 +72,14 @@ public class Vector : MonoBehaviour
     private float z_NewSpaceK = 1;
 
     [SerializeField]
-    float angleDeegres = 0;
+    private float g = 9.8f;
     [SerializeField]
-    float angleRadians = 0;
+    private float timeSecond = 10;
+
+    [SerializeField]
+    private float angleDeegres = 0;
+    [SerializeField]
+    private float angleRadians = 0;
 
     [SerializeField]
     [Range(0f, 1f)]
@@ -86,12 +91,14 @@ public class Vector : MonoBehaviour
 
 
 
+
     private bool vivod1 = false;
     private bool vivod2 = false;
     private bool vivod3 = false;
     private bool vivod4 = false;
     private bool vivod5 = false;
     private bool vivod6 = false;
+    private bool vivod7 = false;
 
     [SerializeField]
     private Color color1 = new Color(0.2F, 0.3F, 0.4F, 0.5F);
@@ -133,8 +140,8 @@ public class Vector : MonoBehaviour
 
             vectorNormal = Vector3D.Normalized(vectorA);
             Debug.Log("Нормализованный вектоор(color2):" + vectorNormal + "    длина: " + Vector3D.Length(vectorNormal));
-                 
-        }   
+
+        }
     }
 
 
@@ -144,7 +151,8 @@ public class Vector : MonoBehaviour
         vivod2 = !vivod2;
         ScalingV_crospProd_LinerTransform_funk(vivod2);
     }
-    public void ScalingV_crospProd_LinerTransform_funk(bool vivod2) {
+    public void ScalingV_crospProd_LinerTransform_funk(bool vivod2)
+    {
         if (vivod2)
         {
             Debug.LogError(vectorA);
@@ -156,7 +164,7 @@ public class Vector : MonoBehaviour
 
             vectorLinearTransformations = Vector3D.LinearTransformations(vectorNewSpaceI, vectorNewSpaceJ, vectorNewSpaceK, vectorA);
             Debug.Log("Преобразование из пространства в новое пространство\n: " + vectorLinearTransformations.ToString());
-            
+
         }
     }
 
@@ -212,21 +220,19 @@ public class Vector : MonoBehaviour
     public void Rotation_funkMOD2(bool vivod3)
     {
         float _timer = Time.deltaTime;
-        float _time = 10f;
-        float _timerWait = 2f;
 
         if (vivod5)
         {
             Vector3D vectorAnew = vectorA;
             while (vectorA.X != vectorAnew.X && vectorA.Y != vectorAnew.Y && vectorA.Z != vectorAnew.Z)
-            {               
+            {
                 vectorRotation = Vector3D.RotationAroundPoint(Vector3D.ConversionVector3InVector3D(Vector3.zero), vectorA, angleRotation / Mathf.Rad2Deg);
                 vectorA = vectorRotation;
                 xA = vectorRotation.X;
                 yA = vectorRotation.Y;
                 zA = vectorRotation.Z;
                 _timer += Time.deltaTime;
-            
+
             }
         }
     }
@@ -241,8 +247,6 @@ public class Vector : MonoBehaviour
     public void Reflection_funk(bool vivod6)
     {
         float _timer = Time.deltaTime;
-        float _time = 10f;
-        float _timerWait = 2f;
 
         if (vivod6)
         {
@@ -250,6 +254,23 @@ public class Vector : MonoBehaviour
             vectorReflectionGlass = Vector3D.ReflectionFromThePlaneGlass(vectorA, vectorB, Vector3D.ConversionVector3InVector3D(vectorNormalSurface), kElasticity);
             Debug.Log("Координаты отраженного вектора(зеркало) " + vectorReflectionMirror + "  Нормаль:  " + Vector3D.ConversionVector3InVector3D(vectorNormalSurface) + " исходный: " + vectorA);
             Debug.Log("Координаты отраженного вектора(стекло) " + vectorReflectionGlass);
+        }
+    }
+
+    [ContextMenu("Ballistics")]
+    public void Ballistics()
+    {
+        vivod7 = !vivod7;
+        Ballistics_funk(vivod7);
+    }
+    public void Ballistics_funk(bool vivod7)
+    {
+
+        if (vivod7)
+        {
+
+            vectorBallisticsList = Vector3D.Ballistics(vectorA, vectorB, angleDeegres * Mathf.Rad2Deg, g, timeSecond);
+            Debug.Log("Координаты вектора" + vectorA + "  угол: " + (angleRadians * Mathf.Rad2Deg));
         }
     }
 
@@ -274,8 +295,9 @@ public class Vector : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()    {
-        
+    void Start()
+    {
+
     }
 
     // Update is called once per frame
@@ -289,7 +311,7 @@ public class Vector : MonoBehaviour
         vectorNewSpaceJ.Set(x_NewSpaceJ, y_NewSpaceJ, z_NewSpaceJ);
         vectorNewSpaceK.Set(x_NewSpaceK, y_NewSpaceK, z_NewSpaceK);
 
-       
+
     }
 
 
@@ -302,7 +324,7 @@ public class Vector : MonoBehaviour
         Gizmos.color = Color.grey;
         Gizmos.DrawSphere(Vector3D.ConversionVector3DInVector3(vectorRotation), 1f); // синий
 
-        
+
         if (vivod1)
         {
             Gizmos.color = Color.red;
@@ -357,14 +379,14 @@ public class Vector : MonoBehaviour
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorNewSpaceK)); //белый
 
             ScalingV_crospProd_LinerTransform_funk(vivod2);
-      
+
 
 
         }
 
         if (vivod3)
         {
-            bool isEnterTheAngle = angle <= Vector3D.AngleBetweenVectorsDegrees(vectorA, vectorB); 
+            bool isEnterTheAngle = angle <= Vector3D.AngleBetweenVectorsDegrees(vectorA, vectorB);
             Gizmos.color = isEnterTheAngle ? Color.red : Color.green;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
 
@@ -378,7 +400,7 @@ public class Vector : MonoBehaviour
 
 
             Handles.DrawWireArc(
-  /*центр*/    transform.position, 
+  /*центр*/    transform.position,
   /*нормаль*/  Vector3D.ConversionVector3DInVector3(Vector3D.Normalized(Vector3D.CrossProduct(vectorA, vectorB))),
   /*выход*/    Vector3D.ConversionVector3DInVector3(Vector3D.Normalized(vectorA)),
   /*угол*/     Vector3D.AngleBetweenVectorsDegrees(vectorA, vectorB),
@@ -394,7 +416,7 @@ public class Vector : MonoBehaviour
 
         if (vivod4)
         {
-          
+
             Gizmos.color = Color.red;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
 
@@ -422,7 +444,7 @@ public class Vector : MonoBehaviour
 
             vivod4 = !vivod4;
         }
-      
+
         if (vivod6)
         {
 
@@ -440,7 +462,7 @@ public class Vector : MonoBehaviour
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorReflectionGlass)); // желтый
 
             Gizmos.color = Color.yellow;
-            Gizmos.DrawLine(Vector3.zero, vectorNormalSurface*2); // желтый
+            Gizmos.DrawLine(Vector3.zero, vectorNormalSurface * 2); // желтый
 
             Handles.color = Color.yellow;
             Handles.DrawSolidDisc(
@@ -451,7 +473,7 @@ public class Vector : MonoBehaviour
 
             if (vectorNormalSurface == Vector3.up) //рисую диск плоскости отражения
             {
-                Handles.DrawSolidDisc( 
+                Handles.DrawSolidDisc(
                     transform.position,
                     Vector3.right, //Vector3.up(0,1,0),  Vector3.forward(0,0,1)  Vector3.right(1,0,0)
                     1);
@@ -461,26 +483,45 @@ public class Vector : MonoBehaviour
             {
                 Handles.DrawSolidDisc(
                     transform.position,
-                    Vector3.up, 
-                    1);              
+                    Vector3.up,
+                    1);
             }
 
             if (vectorNormalSurface == Vector3.right)
             {
                 Handles.DrawSolidDisc(
                     transform.position,
-                    Vector3.forward, 
-                    1);               
+                    Vector3.forward,
+                    1);
             }
 
             Reflection_funk(true);
         }
 
-        Update();     
+        if (vivod7)
+        {
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB)); // синий
+
+            Debug.Log("Количество: " + vectorBallisticsList.Count);
+            foreach (Vector3D vectors in vectorBallisticsList)
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawSphere(Vector3D.ConversionVector3DInVector3(vectors), (float)(vectorBallisticsList.Count / timeSecond)); // синий
+            }
+            Ballistics_funk(false);
+        }
+
+
+        Update();
 
     }
 
-  
+
 
 
 }

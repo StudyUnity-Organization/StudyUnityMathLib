@@ -338,8 +338,8 @@ MonoBehaviour:
   xA: 1
   yA: 1
   zA: 1
-  xB: 1
-  yB: 0
+  xB: 100
+  yB: 100
   zB: 0
   multiplier: 10
   x_NewSpaceI: 1
@@ -351,8 +351,10 @@ MonoBehaviour:
   x_NewSpaceK: 1
   y_NewSpaceK: 1
   z_NewSpaceK: 1
-  angleDeegres: 26.565052
-  angleRadians: 0.46364763
+  g: 9.8
+  timeSecond: 40
+  angleDeegres: 33.9
+  angleRadians: 5.71
   kElasticity: 1
   angle: 45
   angleRotation: 90
