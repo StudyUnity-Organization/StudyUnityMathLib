@@ -494,7 +494,7 @@ public class Vector : MonoBehaviour
                     Vector3.forward,
                     1);
             }
-
+            
             Reflection_funk(true);
         }
 
@@ -513,7 +513,7 @@ public class Vector : MonoBehaviour
                 Gizmos.color = Color.blue;
                 Gizmos.DrawSphere(Vector3D.ConversionVector3DInVector3(vectors), (float)(vectorBallisticsList.Count / timeSecond)); // синий
             }
-            Ballistics_funk(false);
+            Ballistics_funk(true);
         }
 
 

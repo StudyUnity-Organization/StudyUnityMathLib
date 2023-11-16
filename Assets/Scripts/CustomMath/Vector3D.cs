@@ -127,7 +127,7 @@ namespace CustomMath {
             return vectorNewRotation;
         }
 
-        public static Vector3D ReflectionFromThePlaneMirror(Vector3D vectorObject, Vector3D speed, Vector3D normal, float kElasticity) {
+        public static Vector3D ReflectionFromThePlaneMirror(Vector3D vectorObject, Vector3D speed, Vector3D normal, float kElasticity) { //TODO НОРМАЛИЗОВАТЬЁЁ
             //  v' = v - 2 * (v ∙ n/n ∙ n) * n  - зеркало (отражение)                    
             float dot = vectorObject * normal;
             Vector3D vectorReflection = Scaling((vectorObject - Scaling(normal, 2 * dot)), kElasticity);
@@ -135,7 +135,7 @@ namespace CustomMath {
         }
 
         public static Vector3D ReflectionFromThePlaneGlass(Vector3D vectorObject, Vector3D speed, Vector3D normal, float kElasticity) {
-            //v'=v-2(v - v*n)   рикошет (отражение от поверхности)                     
+            //v'=v - 2v*n   рикошет (отражение от поверхности)                     
             Vector3D multiplicationVectors = new Vector3D(vectorObject.X * normal.X,
                                                           vectorObject.Y * normal.Y,
                                                           vectorObject.Z * normal.Z);

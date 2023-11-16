@@ -335,12 +335,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f16958d35bd27b45ae4b22b7e1ad2c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xA: 1
-  yA: 1
-  zA: 1
-  xB: 100
-  yB: 100
-  zB: 0
+  xA: -1.11
+  yA: 3.47
+  zA: -7.51
+  xB: -39
+  yB: 27.3
+  zB: 5.8
   multiplier: 10
   x_NewSpaceI: 1
   y_NewSpaceI: 1
