@@ -507,7 +507,7 @@ public class Vector : MonoBehaviour
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB)); // синий
 
-            Debug.Log("Количество: " + vectorBallisticsList.Count);
+           // Debug.Log("Количество: " + vectorBallisticsList.Count);
             foreach (Vector3D vectors in vectorBallisticsList)
             {
                 Gizmos.color = Color.blue;
