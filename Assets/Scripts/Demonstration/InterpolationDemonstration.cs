@@ -44,7 +44,7 @@ public class InterpolationDemonstration : MonoBehaviour
     }
     public void lerpDemonstrationFunk() {
         if (demo1) {
-            vectorZ = Interpolation.lerp3D(vectorA, vectorB, t);
+            vectorZ = Interpolation.Lerp3D(vectorA, vectorB, t);
             vectorZ3 = Vector3D.ConversionVector3DInVector3(vectorZ);
             Debug.Log("3D: " + vectorZ + "\n3:" + vectorZ3.ToString());
         }
@@ -58,7 +58,7 @@ public class InterpolationDemonstration : MonoBehaviour
     }
     public void rampDemonstrationFunk() {
         if (demo2) {
-            vectorZ2 = Interpolation.remap3D(vectorA, vectorB, vectorA2, vectorB2, vectorZ);                       
+            vectorZ2 = Interpolation.Remap3D(vectorA, vectorB, vectorA2, vectorB2, vectorZ);                       
             vectorZ23 = Vector3D.ConversionVector3DInVector3(vectorZ2);
             Debug.Log("3D: " + vectorZ2 + "\n3:" + vectorZ23.ToString());
         }
@@ -71,11 +71,11 @@ public class InterpolationDemonstration : MonoBehaviour
     }
     public void slerpDemonstrationFunk() {
         if (demo3) {
-            vectorZ = Interpolation.sLerp3D(vectorA, vectorB, t);
+            vectorZ = Interpolation.SLerp3D(vectorA, vectorB, t);
             vectorZ3 = Vector3D.ConversionVector3DInVector3(vectorZ);
             Debug.Log("3D: " + vectorZ + "\n3:" + vectorZ3.ToString());
 
-            sLerpList = Interpolation.sLerpList3D(vectorA, vectorB, t);
+            sLerpList = Interpolation.SLerpList3D(vectorA, vectorB, t);
         }
     }
 

@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 
-public class Vector : MonoBehaviour
+public class VectorDemonstration : MonoBehaviour
 {
     [SerializeField]
     private float xA = 1;
