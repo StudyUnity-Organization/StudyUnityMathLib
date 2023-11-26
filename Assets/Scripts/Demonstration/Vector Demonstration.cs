@@ -6,8 +6,7 @@ using UnityEngine;
 
 
 
-public class VectorDemonstration : MonoBehaviour
-{
+public class VectorDemonstration : MonoBehaviour {
     [SerializeField]
     private float xA = 1;
     [SerializeField]
@@ -117,15 +116,12 @@ public class VectorDemonstration : MonoBehaviour
     private Color color6 = new Color(0.2F, 0.3F, 0.4F, 0.5F);
 
     [ContextMenu("+-*1")]
-    public void Sum_Sub_Scal_Normal()
-    {
+    public void Sum_Sub_Scal_Normal() {
         vivod1 = !vivod1;
         Sum_Sub_Scal_Normal_Funk(vivod1);
     }
-    public void Sum_Sub_Scal_Normal_Funk(bool vivod1)
-    {
-        if (vivod1)
-        {
+    public void Sum_Sub_Scal_Normal_Funk(bool vivod1) {
+        if (vivod1) {
             Debug.LogError(vectorA);
             Debug.LogError(vectorB);
 
@@ -146,15 +142,12 @@ public class VectorDemonstration : MonoBehaviour
 
 
     [ContextMenu("*V_CP_LT")]
-    public void ScalingV_crospProd_LinerTransform()
-    {
+    public void ScalingV_crospProd_LinerTransform() {
         vivod2 = !vivod2;
         ScalingV_crospProd_LinerTransform_funk(vivod2);
     }
-    public void ScalingV_crospProd_LinerTransform_funk(bool vivod2)
-    {
-        if (vivod2)
-        {
+    public void ScalingV_crospProd_LinerTransform_funk(bool vivod2) {
+        if (vivod2) {
             Debug.LogError(vectorA);
             Debug.LogError(vectorB);
             Debug.Log("Скалярное произведение(умнож): " + Vector3D.ScalingVector(vectorA, vectorB));
@@ -170,15 +163,12 @@ public class VectorDemonstration : MonoBehaviour
 
 
     [ContextMenu("Angle")]
-    public void AngleBetween()
-    {
+    public void AngleBetween() {
         vivod3 = !vivod3;
         AngleBetween_funk(vivod3);
     }
-    public void AngleBetween_funk(bool vivod3)
-    {
-        if (vivod3)
-        {
+    public void AngleBetween_funk(bool vivod3) {
+        if (vivod3) {
             Debug.LogError(vectorA);
             Debug.LogError(vectorB);
             angleDeegres = Vector3D.AngleBetweenVectorsDegrees(vectorA, vectorB);
@@ -189,15 +179,12 @@ public class VectorDemonstration : MonoBehaviour
 
 
     [ContextMenu("Rotation_MOD1")]
-    public void Rotation()
-    {
+    public void Rotation() {
         vivod4 = !vivod4;
         Rotation_funk(vivod4);
     }
-    public void Rotation_funk(bool vivod3)
-    {
-        if (vivod4)
-        {
+    public void Rotation_funk(bool vivod3) {
+        if (vivod4) {
             Debug.LogError(vectorA);
             Debug.LogError(vectorB);
             vectorRotation = Vector3D.RotationAroundPointСoordinate(vectorB, vectorRotation, angleRotation / Mathf.Rad2Deg, false, false, true);
@@ -212,20 +199,16 @@ public class VectorDemonstration : MonoBehaviour
 
 
     [ContextMenu("Rotation_MOD2")]
-    public void RotationMOD2()
-    {
+    public void RotationMOD2() {
         vivod5 = !vivod5;
         Rotation_funkMOD2(vivod5);
     }
-    public void Rotation_funkMOD2(bool vivod3)
-    {
+    public void Rotation_funkMOD2(bool vivod3) {
         float _timer = Time.deltaTime;
 
-        if (vivod5)
-        {
+        if (vivod5) {
             Vector3D vectorAnew = vectorA;
-            while (vectorA.X != vectorAnew.X && vectorA.Y != vectorAnew.Y && vectorA.Z != vectorAnew.Z)
-            {
+            while (vectorA.X != vectorAnew.X && vectorA.Y != vectorAnew.Y && vectorA.Z != vectorAnew.Z) {
                 vectorRotation = Vector3D.RotationAroundPoint(Vector3D.ConversionVector3InVector3D(Vector3.zero), vectorA, angleRotation / Mathf.Rad2Deg);
                 vectorA = vectorRotation;
                 xA = vectorRotation.X;
@@ -239,17 +222,14 @@ public class VectorDemonstration : MonoBehaviour
 
 
     [ContextMenu("Reflection")]
-    public void Reflection()
-    {
+    public void Reflection() {
         vivod6 = !vivod6;
         Reflection_funk(vivod6);
     }
-    public void Reflection_funk(bool vivod6)
-    {
+    public void Reflection_funk(bool vivod6) {
         float _timer = Time.deltaTime;
 
-        if (vivod6)
-        {
+        if (vivod6) {
             vectorReflectionMirror = Vector3D.ReflectionFromThePlaneMirror(vectorA, vectorB, Vector3D.ConversionVector3InVector3D(vectorNormalSurface), kElasticity);
             vectorReflectionGlass = Vector3D.ReflectionFromThePlaneGlass(vectorA, vectorB, Vector3D.ConversionVector3InVector3D(vectorNormalSurface), kElasticity);
             Debug.Log("Координаты отраженного вектора(зеркало) " + vectorReflectionMirror + "  Нормаль:  " + Vector3D.ConversionVector3InVector3D(vectorNormalSurface) + " исходный: " + vectorA);
@@ -258,16 +238,13 @@ public class VectorDemonstration : MonoBehaviour
     }
 
     [ContextMenu("Ballistics")]
-    public void Ballistics()
-    {
+    public void Ballistics() {
         vivod7 = !vivod7;
         Ballistics_funk(vivod7);
     }
-    public void Ballistics_funk(bool vivod7)
-    {
+    public void Ballistics_funk(bool vivod7) {
 
-        if (vivod7)
-        {
+        if (vivod7) {
 
             vectorBallisticsList = Vector3D.Ballistics(vectorA, vectorB, angleDeegres * Mathf.Rad2Deg, g, timeSecond);
             Debug.Log("Координаты вектора" + vectorA + "  угол: " + (angleRadians * Mathf.Rad2Deg));
@@ -277,8 +254,7 @@ public class VectorDemonstration : MonoBehaviour
 
 
     [ContextMenu("Initial Values")]
-    public void InitialVsalues()
-    {
+    public void InitialVsalues() {
         //xA = 10;
         //yA = 0;
         //zA = 0;
@@ -294,15 +270,8 @@ public class VectorDemonstration : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
-    void Update()
-    {
+    private void Update() {
 
         vectorA.Set(xA, yA, zA);
         vectorB.Set(xB, yB, zB);
@@ -315,8 +284,7 @@ public class VectorDemonstration : MonoBehaviour
     }
 
 
-    private void OnDrawGizmos()
-    {
+    private void OnDrawGizmos() {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA));
         Gizmos.color = Color.blue;
@@ -325,8 +293,7 @@ public class VectorDemonstration : MonoBehaviour
         Gizmos.DrawSphere(Vector3D.ConversionVector3DInVector3(vectorRotation), 1f); // синий
 
 
-        if (vivod1)
-        {
+        if (vivod1) {
             Gizmos.color = Color.red;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
 
@@ -353,8 +320,7 @@ public class VectorDemonstration : MonoBehaviour
 
         }
 
-        if (vivod2)
-        {
+        if (vivod2) {
             Gizmos.color = Color.red;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
 
@@ -384,8 +350,7 @@ public class VectorDemonstration : MonoBehaviour
 
         }
 
-        if (vivod3)
-        {
+        if (vivod3) {
             bool isEnterTheAngle = angle <= Vector3D.AngleBetweenVectorsDegrees(vectorA, vectorB);
             Gizmos.color = isEnterTheAngle ? Color.red : Color.green;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
@@ -414,8 +379,7 @@ public class VectorDemonstration : MonoBehaviour
         }
 
 
-        if (vivod4)
-        {
+        if (vivod4) {
 
             Gizmos.color = Color.red;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
@@ -433,8 +397,7 @@ public class VectorDemonstration : MonoBehaviour
             vivod4 = !vivod4;
         }
 
-        if (vivod5)
-        {
+        if (vivod5) {
 
             Gizmos.color = Color.red;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
@@ -445,8 +408,7 @@ public class VectorDemonstration : MonoBehaviour
             vivod4 = !vivod4;
         }
 
-        if (vivod6)
-        {
+        if (vivod6) {
 
             Gizmos.color = Color.red;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
@@ -479,27 +441,24 @@ public class VectorDemonstration : MonoBehaviour
                     1);
             }
 
-            if (vectorNormalSurface == Vector3.forward)
-            {
+            if (vectorNormalSurface == Vector3.forward) {
                 Handles.DrawSolidDisc(
                     transform.position,
                     Vector3.up,
                     1);
             }
 
-            if (vectorNormalSurface == Vector3.right)
-            {
+            if (vectorNormalSurface == Vector3.right) {
                 Handles.DrawSolidDisc(
                     transform.position,
                     Vector3.forward,
                     1);
             }
-            
+
             Reflection_funk(true);
         }
 
-        if (vivod7)
-        {
+        if (vivod7) {
 
             Gizmos.color = Color.red;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA)); //красный
@@ -507,9 +466,8 @@ public class VectorDemonstration : MonoBehaviour
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorB)); // синий
 
-           // Debug.Log("Количество: " + vectorBallisticsList.Count);
-            foreach (Vector3D vectors in vectorBallisticsList)
-            {
+            // Debug.Log("Количество: " + vectorBallisticsList.Count);
+            foreach (Vector3D vectors in vectorBallisticsList) {
                 Gizmos.color = Color.blue;
                 Gizmos.DrawSphere(Vector3D.ConversionVector3DInVector3(vectors), (float)(vectorBallisticsList.Count / timeSecond)); // синий
             }

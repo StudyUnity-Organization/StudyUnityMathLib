@@ -78,11 +78,11 @@ namespace CustomMath {
 
             return vectorNewRotation;
         }
-        public enum coordRotationAroundDirection { X, Y, Z };
+        public enum СoordRotationAroundDirection { X, Y, Z };
 
 
 
-        public static Vector3D RotationAroundPointСoordinate(Vector3D center, Vector3D vectorObject, float angle, coordRotationAroundDirection coord) {
+        public static Vector3D RotationAroundPointСoordinate(Vector3D center, Vector3D vectorObject, float angle, СoordRotationAroundDirection coord) {
             Vector3D vectorNewRotation = vectorObject;
             float x;
             float y;
@@ -91,7 +91,7 @@ namespace CustomMath {
             float yR;
             float zR;
 
-            if (coord == coordRotationAroundDirection.X) {
+            if (coord == СoordRotationAroundDirection.X) {
                 x = vectorNewRotation.X;
                 y = vectorNewRotation.Y - center.Y;
                 z = vectorNewRotation.Z - center.Z;
@@ -103,7 +103,7 @@ namespace CustomMath {
                 vectorNewRotation = new Vector3D(xR, yR, zR);
             }
 
-            if (coord == coordRotationAroundDirection.Y) {
+            if (coord == СoordRotationAroundDirection.Y) {
                 x = vectorNewRotation.X - center.X;
                 y = vectorNewRotation.Y;
                 z = vectorNewRotation.Z - center.Z;
@@ -116,7 +116,7 @@ namespace CustomMath {
             }
 
 
-            if (coord == coordRotationAroundDirection.Z) {
+            if (coord == СoordRotationAroundDirection.Z) {
                 x = vectorNewRotation.X - center.X;
                 y = vectorNewRotation.Y - center.Y;
                 z = vectorNewRotation.Z;
