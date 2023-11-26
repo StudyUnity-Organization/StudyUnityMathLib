@@ -1,4 +1,4 @@
-using CustomMath;
+п»їusing CustomMath;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,11 +38,11 @@ public class InterpolationDemonstration : MonoBehaviour
     private List<Vector3D> sLerpList = new List<Vector3D>();
 
     bool demo1 = false;
-    [ContextMenu("Линейная интерполяция")]
-    public void lerpDemonstration() {
+    [ContextMenu("Р›РёРЅРµР№РЅР°СЏ РёРЅС‚РµСЂРїРѕР»СЏС†РёСЏ")]
+    public void LerpDemonstration() {
         demo1 = !demo1;        
     }
-    public void lerpDemonstrationFunk() {
+    public void LerpDemonstrationFunk() {
         if (demo1) {
             vectorZ = Interpolation.Lerp3D(vectorA, vectorB, t);
             vectorZ3 = Vector3D.ConversionVector3DInVector3(vectorZ);
@@ -52,11 +52,11 @@ public class InterpolationDemonstration : MonoBehaviour
 
 
     bool demo2 = false;
-    [ContextMenu("Переназначение")]
-    public void rampDemonstration() {
+    [ContextMenu("РџРµСЂРµРЅР°Р·РЅР°С‡РµРЅРёРµ")]
+    public void RampDemonstration() {
         demo2 = !demo2;       
     }
-    public void rampDemonstrationFunk() {
+    public void RampDemonstrationFunk() {
         if (demo2) {
             vectorZ2 = Interpolation.Remap3D(vectorA, vectorB, vectorA2, vectorB2, vectorZ);                       
             vectorZ23 = Vector3D.ConversionVector3DInVector3(vectorZ2);
@@ -65,11 +65,11 @@ public class InterpolationDemonstration : MonoBehaviour
     }
 
     bool demo3 = false;
-    [ContextMenu("Сферическая интерполяция")]
-    public void slerpDemonstration() {
+    [ContextMenu("РЎС„РµСЂРёС‡РµСЃРєР°СЏ РёРЅС‚РµСЂРїРѕР»СЏС†РёСЏ")]
+    public void SlerpDemonstration() {
         demo3 = !demo3;
     }
-    public void slerpDemonstrationFunk() {
+    public void SlerpDemonstrationFunk() {
         if (demo3) {
             vectorZ = Interpolation.SLerp3D(vectorA, vectorB, t);
             vectorZ3 = Vector3D.ConversionVector3DInVector3(vectorZ);
@@ -98,9 +98,9 @@ public class InterpolationDemonstration : MonoBehaviour
         vectorB2 = Vector3D.ConversionVector3InVector3D(vectorB23);
         vectorZ2 = Vector3D.ConversionVector3InVector3D(vectorZ23);
 
-        lerpDemonstrationFunk();
-        rampDemonstrationFunk();
-        slerpDemonstrationFunk();
+        LerpDemonstrationFunk();
+        RampDemonstrationFunk();
+        SlerpDemonstrationFunk();
     //    Debug.Log(Interpolation.remap3D(0, 0, 2, 2, 2));
     }
 
