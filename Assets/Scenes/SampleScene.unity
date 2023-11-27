@@ -251,6 +251,12 @@ MonoBehaviour:
   vectorA23: {x: 10, y: 2, z: 0}
   vectorB23: {x: 1, y: 2, z: 0}
   vectorZ23: {x: NaN, y: NaN, z: NaN}
+  Cube: {fileID: 7004354704574795950, guid: 78e508df77a90c44da209dbadc65269d, type: 3}
+  quaternionA: {x: 0, y: 0, z: 0, w: 0}
+  quaternionB: {x: 2, y: 2, z: 2, w: 2}
+  quaternionC: {x: 0, y: 0, z: 0, w: 0}
+  quaternion100: {x: 100, y: 100, z: 100, w: 1}
+  quaternionEuler: {x: 0, y: 0, z: 0.70710677, w: 0.70710677}
 --- !u!4 &806359688
 Transform:
   m_ObjectHideFlags: 0
@@ -368,7 +374,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1313860487}
   - component: {fileID: 1313860486}
-  - component: {fileID: 1313860488}
   m_Layer: 0
   m_Name: VectorLogic
   m_TagString: Untagged
@@ -432,26 +437,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1313860488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1313860485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 091403f85635468468950254ee504306, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  t: 0.933
-  radius: 0.19
-  vectorA3: {x: 10, y: 0, z: 0}
-  vectorB3: {x: 0, y: 0, z: 0}
-  vectorZ3: {x: 5, y: 0, z: 0}
-  vectorA23: {x: 10, y: 2, z: 0}
-  vectorB23: {x: 0, y: 2, z: 0}
-  vectorZ23: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
