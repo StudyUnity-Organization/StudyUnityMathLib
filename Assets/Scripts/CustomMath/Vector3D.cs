@@ -80,8 +80,6 @@ namespace CustomMath {
         }
         public enum СoordRotationAroundDirection { X, Y, Z };
 
-
-
         public static Vector3D RotationAroundPointСoordinate(Vector3D center, Vector3D vectorObject, float angle, СoordRotationAroundDirection coord) {
             Vector3D vectorNewRotation = vectorObject;
             float x;

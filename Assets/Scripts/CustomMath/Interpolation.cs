@@ -63,6 +63,10 @@ public class Interpolation {
         return sLerp3DList;
     }
 
+    public static Quaternion SLerpQuaternion3D(Quaternion quaternionA, Quaternion quaternionB, float t) {     
+        return Quaternion.Slerp(quaternionA, quaternionB, t);
+    }
+
 
 
 }

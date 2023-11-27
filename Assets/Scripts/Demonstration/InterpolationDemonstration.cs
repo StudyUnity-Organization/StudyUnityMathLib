@@ -1,8 +1,12 @@
 ﻿using CustomMath;
 using System.Collections.Generic;
+
+//using System.Numerics;
 using UnityEngine;
 
 public class InterpolationDemonstration : MonoBehaviour {
+  
+
     private Vector3D vectorA = new Vector3D(1, 1, 1);
     private Vector3D vectorB = new Vector3D(2, 2, 2);
     private Vector3D vectorZ = new Vector3D(0, 0, 0);
@@ -10,6 +14,7 @@ public class InterpolationDemonstration : MonoBehaviour {
     private Vector3D vectorB2 = new Vector3D(2, 2, 2);
     private Vector3D vectorZ2 = new Vector3D(0, 0, 0);
 
+   
 
     [SerializeField]
     [Range(0f, 1f)]
@@ -33,7 +38,25 @@ public class InterpolationDemonstration : MonoBehaviour {
     [SerializeField]
     private Vector3 vectorZ23 = new Vector3(0, 0, 0);
 
+
+    [SerializeField]
+    private GameObject Cube;
+
+    [SerializeField]
+    private Quaternion quaternionA = new Quaternion(1, 1, 1, 1);
+    [SerializeField]
+    private Quaternion quaternionB = new Quaternion(2, 2, 2, 2);
+    [SerializeField]
+    private Quaternion quaternionC = new Quaternion(0, 0, 0, 0);
+    [SerializeField]
+    private Quaternion quaternion100 = new Quaternion(100, 100, 100, 1);
+    [SerializeField]
+    private Quaternion quaternionEuler = Quaternion.Euler(0, 0, 90);
+
+
     private List<Vector3D> sLerpList = new List<Vector3D>();
+
+
 
     bool demo1 = false;
     [ContextMenu("Linear interpolation")]
@@ -77,6 +100,33 @@ public class InterpolationDemonstration : MonoBehaviour {
         }
     }
 
+    bool demo4 = false;
+    [ContextMenu("SLerp Quaternion3D")]
+    public void SLerpQuaternion() {
+        demo4 = !demo4;
+        if (demo4) {
+            Instantiate(Cube, Vector3.zero, quaternionC); 
+        }
+        else {
+            Destroy(Cube);
+        }
+    }
+    public void SLerpQuaternionFunk() {
+        if (demo4 && Cube.transform.rotation != null) {
+            quaternionC = Interpolation.SLerpQuaternion3D(quaternionA, quaternionB, t);
+
+            quaternionC = Interpolation.SLerpQuaternion3D(quaternionA, quaternionB, t);
+            quaternionC = Interpolation.SLerpQuaternion3D(Cube.transform.rotation, quaternionEuler, t);
+            quaternionC = Quaternion.Slerp(quaternionA, quaternionB, t);
+            Cube.transform.rotation = quaternionC;
+
+            Debug.Log("quaternionC: " + quaternionC.ToString());
+        }
+    }
+
+
+
+
 
     // Update is called once per frame
     private void Update() {
@@ -91,6 +141,7 @@ public class InterpolationDemonstration : MonoBehaviour {
         LerpDemonstrationFunk();
         RemapDemonstrationFunk();
         SlerpDemonstrationFunk();
+        SLerpQuaternionFunk();
         //    Debug.Log(Interpolation.remap3D(0, 0, 2, 2, 2));
     }
 
