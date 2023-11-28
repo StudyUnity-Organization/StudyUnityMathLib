@@ -1,6 +1,7 @@
 ﻿using CustomMath;
 using System.Collections.Generic;
 
+
 //using System.Numerics;
 using UnityEngine;
 
@@ -41,6 +42,8 @@ public class InterpolationDemonstration : MonoBehaviour {
 
     [SerializeField]
     private GameObject Cube;
+    //[SerializeField]
+    //private CubeRotation CubeScript;
 
     [SerializeField]
     private Quaternion quaternionA = new Quaternion(1, 1, 1, 1);
@@ -94,8 +97,7 @@ public class InterpolationDemonstration : MonoBehaviour {
         if (demo3) {
             vectorZ = Interpolation.SLerp3D(vectorA, vectorB, t);
             vectorZ3 = Vector3D.ConversionVector3DInVector3(vectorZ);
-            Debug.Log("3D: " + vectorZ + "\n3:" + vectorZ3.ToString());
-
+            Debug.Log("3D: " + vectorZ + "\n3:" + vectorZ3.ToString());         
             sLerpList = Interpolation.SLerpList3D(vectorA, vectorB, t);
         }
     }
@@ -113,37 +115,43 @@ public class InterpolationDemonstration : MonoBehaviour {
     }
     public void SLerpQuaternionFunk() {
         if (demo4 && Cube.transform.rotation != null) {
-            quaternionC = Interpolation.SLerpQuaternion3D(quaternionA, quaternionB, t);
+            //quaternionC = Interpolation.SLerpQuaternion3D(quaternionA, quaternionB, t);
 
-            quaternionC = Interpolation.SLerpQuaternion3D(quaternionA, quaternionB, t);
-            quaternionC = Interpolation.SLerpQuaternion3D(Cube.transform.rotation, quaternionEuler, t);
+            //quaternionC = Interpolation.SLerpQuaternion3D(quaternionA, quaternionB, t);
+           // quaternionC = Interpolation.SLerpQuaternion3D(Cube.transform.rotation, quaternionEuler, t);
+            //quaternionC = Quaternion.Slerp(quaternionA, quaternionB, t);
+            //Cube.transform.localRotation = quaternionC;
+            //CubeScript.RotationCube(quaternionEuler);
+            quaternionA = Quaternion.Euler(0, 0, 0);
+            quaternionB = Quaternion.Euler(0, 45, 0);  
             quaternionC = Quaternion.Slerp(quaternionA, quaternionB, t);
-
-            Cube.transform.rotation = quaternionC;
-
+            
+            Cube.transform.rotation *= quaternionC;
             Debug.Log("quaternionC: " + quaternionC.ToString());
         }
     }
 
+    private void Start() {
+    //    CubeScript = GameObject.FindGameObjectWithTag("Cube").GetComponent<CubeRotation>();
+    }
 
 
 
-
-    // Update is called once per frame
+        // Update is called once per frame
     private void Update() {
-        vectorA = Vector3D.ConversionVector3InVector3D(vectorA3);
-        vectorB = Vector3D.ConversionVector3InVector3D(vectorB3);
-        vectorZ = Vector3D.ConversionVector3InVector3D(vectorZ3);
+    vectorA = Vector3D.ConversionVector3InVector3D(vectorA3);
+    vectorB = Vector3D.ConversionVector3InVector3D(vectorB3);
+    vectorZ = Vector3D.ConversionVector3InVector3D(vectorZ3);
 
-        vectorA2 = Vector3D.ConversionVector3InVector3D(vectorA23);
-        vectorB2 = Vector3D.ConversionVector3InVector3D(vectorB23);
-        vectorZ2 = Vector3D.ConversionVector3InVector3D(vectorZ23);
+    vectorA2 = Vector3D.ConversionVector3InVector3D(vectorA23);
+    vectorB2 = Vector3D.ConversionVector3InVector3D(vectorB23);
+    vectorZ2 = Vector3D.ConversionVector3InVector3D(vectorZ23);
 
-        LerpDemonstrationFunk();
-        RemapDemonstrationFunk();
-        SlerpDemonstrationFunk();
-        SLerpQuaternionFunk();
-        //    Debug.Log(Interpolation.remap3D(0, 0, 2, 2, 2));
+    LerpDemonstrationFunk();
+    RemapDemonstrationFunk();
+    SlerpDemonstrationFunk();
+    SLerpQuaternionFunk();
+    //    Debug.Log(Interpolation.remap3D(0, 0, 2, 2, 2));
     }
 
     private void OnDrawGizmos() {
