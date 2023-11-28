@@ -118,6 +118,7 @@ public class InterpolationDemonstration : MonoBehaviour {
             quaternionC = Interpolation.SLerpQuaternion3D(quaternionA, quaternionB, t);
             quaternionC = Interpolation.SLerpQuaternion3D(Cube.transform.rotation, quaternionEuler, t);
             quaternionC = Quaternion.Slerp(quaternionA, quaternionB, t);
+
             Cube.transform.rotation = quaternionC;
 
             Debug.Log("quaternionC: " + quaternionC.ToString());
