@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 091403f85635468468950254ee504306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  t: 0.485
+  t: 0.887
   radius: 0.1
   vectorA3: {x: 3, y: 1, z: 0}
   vectorB3: {x: 1, y: 0, z: 0}
@@ -253,7 +253,7 @@ MonoBehaviour:
   vectorZ23: {x: NaN, y: NaN, z: NaN}
   Cube: {fileID: 7004354704574795950, guid: 78e508df77a90c44da209dbadc65269d, type: 3}
   quaternionA: {x: 0, y: 0, z: 0, w: 0}
-  quaternionB: {x: 2, y: 2, z: 2, w: 2}
+  quaternionB: {x: 0.002, y: 0.002, z: 0.002, w: 1}
   quaternionC: {x: 0, y: 0, z: 0, w: 0}
   quaternion100: {x: 100, y: 100, z: 100, w: 1}
   quaternionEuler: {x: 0, y: 0, z: 0.70710677, w: 0.70710677}
