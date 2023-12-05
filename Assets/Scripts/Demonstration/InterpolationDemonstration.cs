@@ -136,8 +136,8 @@ public class InterpolationDemonstration : MonoBehaviour {
         SLerpQuaternionFunk();
     }
 
-    private void OnDrawGizmos() {
 
+    private void OnDrawGizmosSelected() {
         if (demo1) {
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(vectorA3, radius);
@@ -146,7 +146,6 @@ public class InterpolationDemonstration : MonoBehaviour {
             Gizmos.color = Color.blue;
             Gizmos.DrawSphere(vectorZ3, radius);
         }
-
         if (demo2) {
             Gizmos.color = Color.red;
             Gizmos.DrawSphere(vectorA3, radius);
@@ -178,5 +177,6 @@ public class InterpolationDemonstration : MonoBehaviour {
         }
 
     }
+
 
 }

@@ -284,7 +284,7 @@ public class VectorDemonstration : MonoBehaviour {
     }
 
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(vectorA));
         Gizmos.color = Color.blue;
