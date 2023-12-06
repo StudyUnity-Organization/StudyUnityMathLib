@@ -214,6 +214,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &806359686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 806359688}
+  - component: {fileID: 806359687}
+  m_Layer: 0
+  m_Name: InterpolationLogic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &806359687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806359686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091403f85635468468950254ee504306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  t: 0.887
+  radius: 0.1
+  vectorA3: {x: 3, y: 1, z: 0}
+  vectorB3: {x: 1, y: 0, z: 0}
+  vectorZ3: {x: 2, y: 0, z: 0}
+  vectorA23: {x: 10, y: 2, z: 0}
+  vectorB23: {x: 1, y: 2, z: 0}
+  vectorZ23: {x: NaN, y: NaN, z: NaN}
+  Cube: {fileID: 7004354704574795950, guid: 78e508df77a90c44da209dbadc65269d, type: 3}
+  quaternionA: {x: 0, y: 0, z: 0, w: 0}
+  quaternionB: {x: 0.002, y: 0.002, z: 0.002, w: 1}
+  quaternionC: {x: 0, y: 0, z: 0, w: 0}
+  quaternion100: {x: 100, y: 100, z: 100, w: 1}
+  quaternionEuler: {x: 0, y: 0, z: 0.70710677, w: 0.70710677}
+--- !u!4 &806359688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806359686}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.6, y: 5.24, z: -0.59127116}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f16958d35bd27b45ae4b22b7e1ad2c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xA: -1.11
+  xA: 2.19
   yA: 3.47
   zA: -7.51
   xB: -39
@@ -353,8 +411,8 @@ MonoBehaviour:
   z_NewSpaceK: 1
   g: 9.8
   timeSecond: 40
-  angleDeegres: 33.9
-  angleRadians: 5.71
+  angleDeegres: 109.15551
+  angleRadians: 1.905123
   kElasticity: 1
   angle: 45
   angleRotation: 90
@@ -386,3 +444,4 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 1313860487}
+  - {fileID: 806359688}

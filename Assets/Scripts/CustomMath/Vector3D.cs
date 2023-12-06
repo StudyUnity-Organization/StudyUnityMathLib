@@ -78,7 +78,55 @@ namespace CustomMath {
 
             return vectorNewRotation;
         }
+        public enum СoordRotationAroundDirection { X, Y, Z };
 
+        public static Vector3D RotationAroundPointСoordinate(Vector3D center, Vector3D vectorObject, float angle, СoordRotationAroundDirection coord) {
+            Vector3D vectorNewRotation = vectorObject;
+            float x;
+            float y;
+            float z;
+            float xR;
+            float yR;
+            float zR;
+
+            if (coord == СoordRotationAroundDirection.X) {
+                x = vectorNewRotation.X;
+                y = vectorNewRotation.Y - center.Y;
+                z = vectorNewRotation.Z - center.Z;
+
+                xR = x;
+                yR = (float)(y * Math.Cos(angle) - z * Math.Sin(angle)) + center.Y;
+                zR = (float)(y * Math.Sin(angle) + z * Math.Cos(angle)) + center.Z;
+
+                vectorNewRotation = new Vector3D(xR, yR, zR);
+            }
+
+            if (coord == СoordRotationAroundDirection.Y) {
+                x = vectorNewRotation.X - center.X;
+                y = vectorNewRotation.Y;
+                z = vectorNewRotation.Z - center.Z;
+
+                xR = (float)(x * Math.Cos(angle) - z * Math.Sin(angle)) + center.X;
+                yR = y;
+                zR = (float)(x * Math.Sin(angle) + z * Math.Cos(angle)) + center.Z;
+
+                vectorNewRotation = new Vector3D(xR, yR, zR);
+            }
+
+
+            if (coord == СoordRotationAroundDirection.Z) {
+                x = vectorNewRotation.X - center.X;
+                y = vectorNewRotation.Y - center.Y;
+                z = vectorNewRotation.Z;
+
+                xR = (float)(x * Math.Cos(angle) - y * Math.Sin(angle)) + center.X;
+                yR = (float)(x * Math.Sin(angle) + y * Math.Cos(angle)) + center.Y;
+                zR = z;
+                vectorNewRotation = new Vector3D(xR, yR, zR);
+            }
+
+            return vectorNewRotation;
+        }
         public static Vector3D RotationAroundPointСoordinate(Vector3D center, Vector3D vectorObject, float angle, bool xBool, bool yBool, bool zBool) { //TODO спросить про расширение 
 
             Vector3D vectorNewRotation = vectorObject;
