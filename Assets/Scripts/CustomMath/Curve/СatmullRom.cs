@@ -41,8 +41,7 @@ public static class СatmullRom {
         float rangeFinal = 1;                        //конечное значение диапазона, в который входит точка 
         float tNew = 1;                              //значение t для каждого учаска(между двумя точками)
         bool enterInDiapazon = false;                //попали ли мы в диапазон значений или нет
-        int countPoint = 0;                          //счетчик точек
-        List<Vector3> newp = new List<Vector3>();
+        int countPoint = 0;                          //счетчик точек   
         tNew = 1f / (p.Count - 3f);                  //нахожу значение t между точками (Например, так как t от 0 до 1, то при двух точках t = 0.5 :  для  первой точки - 0~0.5, для второй - 0,5~1)
         rangeFinal = tNew;
         while (!enterInDiapazon) {
@@ -59,11 +58,11 @@ public static class СatmullRom {
     }
 
 
-    public static Vector3 СatmullRomSpline(float t, List<Transform> p) {
-        List<Vector3> newp = new List<Vector3>();
+    public static Vector3 СatmullRomSpline(float t, List<Transform> p, List<Vector3> positions) { 
+        positions.Clear();
         for (int i = 0; i < p.Count; i++) {
-            newp.Add(p[i].position);
+            positions.Add(p[i].position);
         }
-        return СatmullRomSpline(t, newp);
+        return СatmullRomSpline(t, positions);
     }
 }

@@ -10,22 +10,29 @@ public static class Bezier {
     public static Vector3 BezierCurve(float t, List<Vector3> p) {
         if (p.Count < 2) {
             return p[0];
-        }
-        List<Vector3> newp = new List<Vector3>();
+        }    
         for (int i = 0; i < p.Count - 1; i++) {
             Vector3 p0p1 = (1 - t) * p[i] + t * p[i + 1];
-            newp.Add(p0p1);
+            //       newp.Add(p0p1);
+            p[i] = p0p1;
         }
-        return BezierCurve(t, newp);
+        p.RemoveAt(p.Count - 1);
+        return BezierCurve(t, p);
     }
 
-    public static Vector3 BezierCurve(float t, List<Transform> p) {
-        if (p.Count < 2) { return p[0].position; }
-        List<Vector3> newp = new List<Vector3>();
-        for (int i = 0; i < p.Count; i++) {
-            newp.Add(p[i].position);
+    public static Vector3 BezierCurve(float t, List<Transform> p, List<Vector3> positions) {
+        if (p.Count < 2) {
+            try {
+                return p[0].position;
+            } catch (Exception e) {
+                return Vector3.zero;
+            }
         }
-        return BezierCurve(t, newp);
+        positions.Clear();
+        for (int i = 0; i < p.Count; i++) {
+            positions.Add(p[i].position);
+        }
+        return BezierCurve(t, positions);
     }
 
 
