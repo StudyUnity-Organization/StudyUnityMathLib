@@ -1,11 +1,11 @@
-using CustomMath;
+п»їusing CustomMath;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
-public struct Matrix {  //для проверки гита х2
+public struct Matrix {  //РґР»СЏ РїСЂРѕРІРµСЂРєРё РіРёС‚Р° С…2
 
     public Vector4 X { get; private set; }
     public Vector4 Y { get; private set; }

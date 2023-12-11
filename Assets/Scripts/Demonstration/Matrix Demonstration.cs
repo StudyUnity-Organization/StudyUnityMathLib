@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CustomMath;
@@ -19,9 +19,9 @@ public class MatrixDemonstration : MonoBehaviour
     
     void Update()
     {
-        //использую Matrix4x4 для получения нужных значений из матрицы -
-        //в самой функции я сначала перемножаю матрицы (в своей структуре),
-        //а только потом перевожу свою матрицу в Matrix4x4
+        //РёСЃРїРѕР»СЊР·СѓСЋ Matrix4x4 РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РЅСѓР¶РЅС‹С… Р·РЅР°С‡РµРЅРёР№ РёР· РјР°С‚СЂРёС†С‹ -
+        //РІ СЃР°РјРѕР№ С„СѓРЅРєС†РёРё СЏ СЃРЅР°С‡Р°Р»Р° РїРµСЂРµРјРЅРѕР¶Р°СЋ РјР°С‚СЂРёС†С‹ (РІ СЃРІРѕРµР№ СЃС‚СЂСѓРєС‚СѓСЂРµ),
+        //Р° С‚РѕР»СЊРєРѕ РїРѕС‚РѕРј РїРµСЂРµРІРѕР¶Сѓ СЃРІРѕСЋ РјР°С‚СЂРёС†Сѓ РІ Matrix4x4
 
         _matrixTRS = MatrixRotation.TRSMatrix4x4(translation, angleRotation, scale);
         Vector4 newPos = _matrixTRS.GetT();
@@ -37,7 +37,7 @@ public class MatrixDemonstration : MonoBehaviour
 
     }
     public void TRStest() {
-        //использовал для тест матрицы TRS
+        //РёСЃРїРѕР»СЊР·РѕРІР°Р» РґР»СЏ С‚РµСЃС‚ РјР°С‚СЂРёС†С‹ TRS
         _matrixTRS = MatrixRotation.TRSMatrix4x4TRS(translation, angleRotation, scale);
         Vector3 newPos = _matrixTRS.GetPosition();
         transform.position = newPos;
@@ -47,7 +47,7 @@ public class MatrixDemonstration : MonoBehaviour
         transform.localScale = newScale;
     }
 
-    //проверка умножения матриц
+    //РїСЂРѕРІРµСЂРєР° СѓРјРЅРѕР¶РµРЅРёСЏ РјР°С‚СЂРёС†
     public void MatrixTest() {
         Vector4 a1 = new Vector4(1, 2, 3, 4);
         Vector4 a2 = new Vector4(1, 2, 3, 4);
