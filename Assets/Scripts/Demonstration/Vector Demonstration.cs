@@ -362,10 +362,9 @@ public class VectorDemonstration : MonoBehaviour {
             Gizmos.DrawLine(Vector3.zero, Vector3D.ConversionVector3DInVector3(Vector3D.CrossProduct(vectorA, vectorB))); // желтый
 
             AngleBetween_funk(vivod3);
-
-
+            
             Handles.DrawWireArc(
-  /*центр*/    transform.position,
+            /*центр*/    transform.position,
   /*нормаль*/  Vector3D.ConversionVector3DInVector3(Vector3D.Normalized(Vector3D.CrossProduct(vectorA, vectorB))),
   /*выход*/    Vector3D.ConversionVector3DInVector3(Vector3D.Normalized(vectorA)),
   /*угол*/     Vector3D.AngleBetweenVectorsDegrees(vectorA, vectorB),
