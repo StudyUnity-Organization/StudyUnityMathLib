@@ -2,41 +2,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CustomMath;
+using Palmmedia.ReportGenerator.Core.Parser.Analysis;
+using Unity.VisualScripting;
 
 public class MatrixDemonstration : MonoBehaviour
 {
+    [SerializeField]
+    private Vector4 translation;
+    [SerializeField]
+    private Vector3 angleRotation;
+    [SerializeField]
+    private Vector3 scale;
 
+    private Matrix4x4 _matrixTRS;   
 
-    public Vector4 translation;
-    public Vector3 angleRotation;
-    public Vector3 scale;
-
-    private Vector4 TRS;
-
-    private Vector3 _startPosition; 
-    private Vector4 _rotation;
-    private Vector4 _scaling;
-    // Start is called before the first frame update
-    void Start()
-    {
-        _startPosition = transform.position;
-    }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        transform.position = MatrixRotation.TranslationMatrix(_startPosition, translation);
+        //использую Matrix4x4 для получения нужных значений из матрицы -
+        //в самой функции я сначала перемножаю матрицы (в своей структуре),
+        //а только потом перевожу свою матрицу в Matrix4x4
 
-        _rotation = MatrixRotation.RotationMatrix(transform.position, angleRotation);
+        _matrixTRS = MatrixRotation.TRSMatrix4x4(translation, angleRotation, scale);
+        Vector4 newPos = _matrixTRS.GetT();
+        transform.position = new Vector3(newPos.x, newPos.y, newPos.z);
 
-        transform.position = new Vector3(_rotation.x, _rotation.y, _rotation.z);
+        Quaternion newRot = _matrixTRS.GetR();
+        transform.rotation = newRot;
 
-        _scaling = MatrixRotation.ScaleMatrix(transform.position, scale);
+        Vector4 newScale = _matrixTRS.GetS();
+        transform.localScale = new Vector3(newScale.x, newScale.y, newScale.z);
+        Debug.Log(_matrixTRS);
 
-        transform.position = new Vector3(_scaling.x, _scaling.y, _scaling.z);
 
-
-        //TRS = MatrixRotation.TRS(_startPosition, translation, angleRotation, scale);
-        //transform.position = new Vector3(TRS.x, TRS.y, TRS.z);
     }
+    public void TRStest() {
+        //использовал для тест матрицы TRS
+        _matrixTRS = MatrixRotation.TRSMatrix4x4TRS(translation, angleRotation, scale);
+        Vector3 newPos = _matrixTRS.GetPosition();
+        transform.position = newPos;
+        Quaternion newRot = _matrixTRS.GetR();
+        transform.rotation = newRot;
+        Vector3 newScale = _matrixTRS.GetS();
+        transform.localScale = newScale;
+    }
+
+    //проверка умножения матриц
+    public void MatrixTest() {
+        Vector4 a1 = new Vector4(1, 2, 3, 4);
+        Vector4 a2 = new Vector4(1, 2, 3, 4);
+        Vector4 a3 = new Vector4(1, 2, 3, 4);
+        Vector4 a4 = new Vector4(1, 2, 3, 4);
+
+        Vector4 b1 = new Vector4(1, 2, 3, 4);
+        Vector4 b2 = new Vector4(1, 2, 3, 4);
+        Vector4 b3 = new Vector4(1, 2, 3, 4);
+        Vector4 b4 = new Vector4(1, 2, 3, 4);
+
+        Matrix a = new Matrix(a1, a2, a3, a4);
+
+        Matrix b = new Matrix(b1, b2, b3, b4);
+
+        Matrix c = a * b;
+        Debug.Log(c);
+    }
+
 }

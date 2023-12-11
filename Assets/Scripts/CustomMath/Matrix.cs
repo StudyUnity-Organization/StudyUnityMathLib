@@ -1,6 +1,7 @@
 using CustomMath;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
@@ -61,7 +62,59 @@ public struct Matrix {  //для проверки гита х2
         return c;
     }
 
+    public static Matrix4x4 convertMatrix4x4(Matrix a) {
+            Vector4 line1;
+            Vector4 line2;
+            Vector4 line3;
+            Vector4 line4;
 
+        line1 = a.X;
+        line2 = a.Y;
+        line3 = a.Z;
+        line4 = a.W;
+
+        //Debug.Log("line1!" + line1);
+        //Debug.Log("line2!" + line2);  //x - scale z - scale
+        //Debug.Log("line3!" + line3); //z - rot
+        //Debug.Log("line4!" + line4); //z - rot+
+
+        Matrix4x4 newMatix = new Matrix4x4();
+        newMatix.SetRow(0, a.X);
+        newMatix.SetRow(1, a.Y);
+        newMatix.SetRow(2, a.Z);
+        newMatix.SetRow(3, a.W);
+        //for (int j = 0; j < 4; j++) {
+        //    for (int i = 0; i < 4; i++)
+        //        if (j == 0) {
+        //            newMatix[i + j] = a.X[i];
+        //        } else if (j == 1) {
+        //            newMatix[i + j] = a.Y[i];
+        //        } else if (j == 2) {
+        //            newMatix[i + j] = a.Z[i];
+        //        } else if (j == 3) {
+        //            newMatix[i + j] = a.W[i];
+        //        }
+
+        //}
+
+        //Debug.Log("newMatix[i + j] !" + a.X[3]);
+
+        line1 = newMatix.GetRow(0);
+        line2 = newMatix.GetRow(1);
+        line3 = newMatix.GetRow(2);
+        line4 = newMatix.GetRow(3);
+
+        //Debug.Log("line1" + line1);
+        //Debug.Log("line2" + line2);  //x - scale z - scale
+        //Debug.Log("line3" + line3); //z - rot
+        //Debug.Log("line4" + line4); //z - rot
+
+        return newMatix;
+    }
+
+    public override string ToString() {
+        return $"{X}\n{Y}\n{Z}\n{W}\n";
+    }
 
 
 
