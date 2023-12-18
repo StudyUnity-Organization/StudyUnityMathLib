@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 [ExecuteAlways]
@@ -42,6 +44,7 @@ public class Curve : MonoBehaviour {
     private Vector3 _pointDemonstrationEnd;
 
     private List<Transform> _pointsCurve = new List<Transform>();
+    private List<Vector3> _pointsPositions = new List<Vector3>();
 
     Ray _ray;
     RaycastHit _hit;
@@ -84,40 +87,34 @@ public class Curve : MonoBehaviour {
 
         }
         if (flagBezierTrueСatmullRomFale) {
-            cube.transform.position = Bezier.BezierCurve(t, _pointsCurve);
+            cube.transform.position = Bezier.BezierCurve(t, _pointsCurve, _pointsPositions);
         } else {
-            cube.transform.position = СatmullRom.СatmullRomSpline(t, _pointsCurve);
+            cube.transform.position = СatmullRom.СatmullRomSpline(t, _pointsCurve, _pointsPositions);
         }
 
     }
 
-        private void OnDrawGizmos() {
-        if (flagBezierTrueСatmullRomFale) {
-            _pointDemonstrationBegin = Bezier.BezierCurve(0f, _pointsCurve);
-        } else {
-            _pointDemonstrationBegin = СatmullRom.СatmullRomSpline(0f, _pointsCurve);
-        }
+    private void OnDrawGizmos() { 
       
         Gizmos.color = Color.red;
         if (flagBezierTrueСatmullRomFale) {
-            for (float i = 0f; i <= 1f; i += 0.3f / _pointsCurve.Count) {
-                _pointDemonstrationEnd = Bezier.BezierCurve(i, _pointsCurve); ;
-                Gizmos.DrawLine(_pointDemonstrationBegin, _pointDemonstrationEnd);
-                _pointDemonstrationBegin = _pointDemonstrationEnd;
-            }
-
-            _pointDemonstrationEnd = Bezier.BezierCurve(1, _pointsCurve); ;
-            Gizmos.DrawLine(_pointDemonstrationBegin, _pointDemonstrationEnd);
+            DrawCurve(Bezier.BezierCurve);
         } else {
-            for (float i = 0f; i <= 1f; i += 0.3f / _pointsCurve.Count) {
-                _pointDemonstrationEnd = СatmullRom.СatmullRomSpline(i, _pointsCurve); ;
-                Gizmos.DrawLine(_pointDemonstrationBegin, _pointDemonstrationEnd);
-                _pointDemonstrationBegin = _pointDemonstrationEnd;
-            }
-
-            _pointDemonstrationEnd = СatmullRom.СatmullRomSpline(1, _pointsCurve); ;
-            Gizmos.DrawLine(_pointDemonstrationBegin, _pointDemonstrationEnd);
+            DrawCurve(СatmullRom.СatmullRomSpline);
         }
+
+    }
+
+    private void DrawCurve(Func<float, List<Transform>, List<Vector3>, Vector3> funcCurve) {
+        _pointDemonstrationBegin = funcCurve(0f, _pointsCurve, _pointsPositions);
+        for (float i = 0f; i <= 1f; i += 0.3f / _pointsCurve.Count) {
+            _pointDemonstrationEnd = funcCurve(i, _pointsCurve, _pointsPositions); ;
+            Gizmos.DrawLine(_pointDemonstrationBegin, _pointDemonstrationEnd);
+            _pointDemonstrationBegin = _pointDemonstrationEnd;
+        }
+
+        _pointDemonstrationEnd = funcCurve(1, _pointsCurve, _pointsPositions); ;
+        Gizmos.DrawLine(_pointDemonstrationBegin, _pointDemonstrationEnd);
 
     }
 
